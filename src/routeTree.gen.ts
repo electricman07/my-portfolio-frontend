@@ -14,6 +14,7 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as GetStartedRouteImport } from './routes/get-started'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
@@ -48,6 +49,11 @@ const SearchRoute = SearchRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GetStartedRoute = GetStartedRouteImport.update({
+  id: '/get-started',
+  path: '/get-started',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/get-started': typeof GetStartedRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
   '/services': typeof ServicesRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/get-started': typeof GetStartedRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
   '/services': typeof ServicesRoute
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/get-started': typeof GetStartedRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
   '/services': typeof ServicesRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/faq'
+    | '/get-started'
     | '/privacy'
     | '/search'
     | '/services'
@@ -177,6 +187,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/faq'
+    | '/get-started'
     | '/privacy'
     | '/search'
     | '/services'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/faq'
+    | '/get-started'
     | '/privacy'
     | '/search'
     | '/services'
@@ -212,6 +224,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  GetStartedRoute: typeof GetStartedRoute
   PrivacyRoute: typeof PrivacyRoute
   SearchRoute: typeof SearchRoute
   ServicesRoute: typeof ServicesRoute
@@ -260,6 +273,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/get-started': {
+      id: '/get-started'
+      path: '/get-started'
+      fullPath: '/get-started'
+      preLoaderRoute: typeof GetStartedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -340,6 +360,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  GetStartedRoute: GetStartedRoute,
   PrivacyRoute: PrivacyRoute,
   SearchRoute: SearchRoute,
   ServicesRoute: ServicesRoute,

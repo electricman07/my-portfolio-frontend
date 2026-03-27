@@ -1,21 +1,7 @@
-import {
-  FaFacebook,
-  FaGithub,
-  FaLinkedin,
-  FaXTwitter,
-  FaInstagram,
-  FaRegEnvelope,
-} from "react-icons/fa6";
+import { FaRegEnvelope } from "react-icons/fa6";
+import { SOCIALS } from "../../lib/socials";
 
 export function ContactInfo() {
-  const socials = [
-    { Icon: FaFacebook, href: "#", label: "Facebook", color: "#1877F2" },
-    { Icon: FaGithub, href: "#", label: "GitHub", color: "#181717" },
-    { Icon: FaLinkedin, href: "#", label: "LinkedIn", color: "#0A66C2" },
-    { Icon: FaXTwitter, href: "#", label: "Twitter", color: "#000000" },
-    { Icon: FaInstagram, href: "#", label: "Instagram", color: "#E4405F" },
-  ];
-
   return (
     <div className="p-10 flex flex-col h-full transition-all duration-500 ease-out bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[3rem] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)]hover:shadow-2xl space-y-12">
       {/* DIRECT CONTACT */}
@@ -24,7 +10,7 @@ export function ContactInfo() {
           Direct Channel
         </h3>
         <a
-          href="mailto:hello@yourdomain.com"
+          href="mailto:gmpopowich@gmail.com"
           className="group flex items-center gap-5 p-4 rounded-3xl bg-slate-50 dark:bg-slate-900 border-2 border-transparent hover:border-blue-500 hover:bg-white dark:hover:bg-slate-800 transition-all duration-300"
         >
           <div className="w-14 h-14 bg-white dark:bg-slate-800 rounded-2xl shadow-sm flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform">
@@ -35,7 +21,7 @@ export function ContactInfo() {
               Email Me
             </span>
             <span className="text-lg font-black tracking-tighter text-slate-900 dark:text-white">
-              hello@yourdomain.com
+              gmpopowich@gmail.com
             </span>
           </div>
         </a>
@@ -47,11 +33,11 @@ export function ContactInfo() {
           Digital Presence
         </h3>
         <div className="grid grid-cols-5 gap-3">
-          {socials.map(({ Icon, href, label }) => (
+          {SOCIALS.map(({ Icon, href, name }) => (
             <a
-              key={label}
+              key={name}
               href={href}
-              aria-label={label}
+              aria-label={name}
               target="_blank"
               rel="noopener noreferrer"
               className="aspect-square bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:border-blue-500 hover:bg-white dark:hover:bg-slate-800 group shadow-sm"

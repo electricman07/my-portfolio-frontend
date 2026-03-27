@@ -52,16 +52,19 @@ function RouteComponent() {
     );
   return (
     <div className="max-w-7xl mx-auto py-20 px-6 space-y-20 animate-in fade-in duration-700">
-      <header className="max-w-3xl mx-auto text-center">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+      <header className="max-w-3xl mx-auto text-center space-y-6">
+        <h4 className="text-blue-500 font-black uppercase tracking-[0.2em] text-xs">
+          Technical Arsenal
+        </h4>
+        <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-tight">
           The Engine Behind My Work
         </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400">
+        <p className="text-xl text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
           Modern, robust, and scalable technologies for future-proof projects.
         </p>
       </header>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {items.length > 0 ? (
           items.map((tech: any) => (
             <TechCard

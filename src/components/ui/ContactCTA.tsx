@@ -31,7 +31,7 @@ export function ContactCTA() {
         {/* 3. THE "MAGNETIC" BUTTON */}
         <div className="pt-6">
           <Link
-            to="/contact"
+            to="/get-started"
             className="inline-flex items-center gap-3 px-10 py-5 bg-white text-blue-600 
                        rounded-full font-black uppercase tracking-widest text-sm 
                        shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 group/btn"

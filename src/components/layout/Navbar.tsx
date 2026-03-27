@@ -1,23 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
-import {
-  FaFacebook,
-  FaGithub,
-  FaLinkedin,
-  FaXTwitter,
-  FaInstagram,
-  FaBars,
-  FaX,
-} from "react-icons/fa6";
+import { FaBars, FaX } from "react-icons/fa6";
 import { ThemeToggle } from "./ThemeToggle";
+import { SOCIALS } from "../../lib/socials";
+import { NAV_LINKS } from "../../lib/navigation";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(true);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDark);
-  }, [isDark]);
 
   useEffect(() => {
     if (isOpen) {
@@ -30,36 +19,17 @@ export function Navbar() {
     };
   }, [isOpen]);
 
-  const navLinks = [
-    { name: "Home", to: "/" },
-    { name: "About", to: "/about" },
-    { name: "Services", to: "/services" },
-    { name: "Tech Stack", to: "/tech-stack" },
-    { name: "Portfolio", to: "/portfolio" },
-    { name: "Blog", to: "/blog" },
-    { name: "FAQ", to: "/faq" },
-    { name: "Contact", to: "/contact" },
-  ];
-
-  const socials = [
-    { Icon: FaFacebook, href: "#" },
-    { Icon: FaGithub, href: "#" },
-    { Icon: FaLinkedin, href: "#" },
-    { Icon: FaXTwitter, href: "#" },
-    { Icon: FaInstagram, href: "#" },
-  ];
-
   return (
     <nav className="sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Left: Title */}
         <Link to="/" className="text-xl font-bold tracking-tighter">
-          DEV.PORTFOLIO
+          GLEN.PORTFOLIO
         </Link>
 
         {/* Middle: Desktop Links */}
         <div className="hidden md:flex gap-6">
-          {navLinks.map((link) => (
+          {NAV_LINKS.map((link) => (
             <Link
               key={link.to}
               to={link.to}
@@ -73,13 +43,19 @@ export function Navbar() {
         {/* Right: Socials & Toggle */}
         <div className="flex items-center gap-4">
           <div className="hidden lg:flex gap-3 border-r border-slate-300 dark:border-slate-700 pr-4">
-            {socials.map(({ Icon, href }, i) => (
+            {SOCIALS.map(({ Icon, href, name }) => (
               <a
-                key={i}
+                key={name}
                 href={href}
-                className="hover:text-blue-500 transition-colors"
+                aria-label={name}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="aspect-square bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1  hover:bg-white dark:hover:bg-slate-800 group shadow-sm"
               >
-                <Icon size={18} />
+                {/* Using the consistent Blue-500 to match your Email icon above */}
+                <span className="text-blue-500 transition-transform duration-300 group-hover:scale-110">
+                  <Icon size={22} />
+                </span>
               </a>
             ))}
           </div>
@@ -117,14 +93,14 @@ export function Navbar() {
     `}
         >
           <div className="flex flex-col gap-6 text-center grow justify-center">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <Link key={link.to} to={link.to} onClick={() => setIsOpen(false)}>
                 {link.name}
               </Link>
             ))}
           </div>
           <div className="pt-10 border-t border-slate-100 dark:border-slate-800 flex justify-center gap-8">
-            {socials.map(({ Icon, href }, i) => (
+            {SOCIALS.map(({ Icon, href }, i) => (
               <a key={i} href={href}>
                 <Icon size={28} />
               </a>

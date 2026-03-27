@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronUp } from "lucide-react";
+import { NAV_LINKS, LEGAL_LINKS } from "../../lib/navigation";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -24,21 +25,13 @@ export function Footer() {
 
           {/* 2. CENTERED NAVIGATION */}
           <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-            {[
-              { label: "About", to: "/about" },
-              { label: "Services", to: "/services" },
-              { label: "Portfolio", to: "/portfolio" },
-              { label: "Blog", to: "/blog" },
-              { label: "FAQ", to: "/faq" },
-              { label: "Support", to: "/support" }, // Added Support here
-              { label: "Contact", to: "/contact" },
-            ].map((item) => (
+            {NAV_LINKS.map((item) => (
               <Link
                 key={item.to}
                 to={item.to as any}
                 className="text-xs font-black uppercase tracking-widest text-slate-500 hover:text-blue-500 transition-colors"
               >
-                {item.label}
+                {item.name}
               </Link>
             ))}
           </nav>
@@ -57,19 +50,15 @@ export function Footer() {
             </button>
 
             <div className="flex gap-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
-              {/* CONNECTED: Updated to="/" to your new route paths */}
-              <Link
-                to="/privacy"
-                className="hover:text-blue-500 transition-colors"
-              >
-                Privacy
-              </Link>
-              <Link
-                to="/terms"
-                className="hover:text-blue-500 transition-colors"
-              >
-                Terms
-              </Link>
+              {LEGAL_LINKS.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="hover:text-blue-500 transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
             </div>
           </div>
         </div>

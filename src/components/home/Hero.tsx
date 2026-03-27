@@ -32,8 +32,7 @@ export function Hero({ title, subtitle, description, ctaText }: HeroProps) {
       {/* Call to Action Buttons */}
       <div className="flex flex-wrap justify-center gap-4">
         <Link
-          to="/portfolio"
-          search={{ page: 1, search: "" }}
+          to="/get-started"
           className="px-8 py-4 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-500/20 active:scale-95"
         >
           {ctaText || "View My Work"}
