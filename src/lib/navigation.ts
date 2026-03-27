@@ -6,7 +6,8 @@ export const NAV_LINKS = [
   { name: "Portfolio", to: "/portfolio" as const },
   { name: "Blog", to: "/blog" as const },
   { name: "FAQ", to: "/faq" as const },
-  { name: "Contact", to: "/contact" as const },
+  // { name: "Contact", to: "/contact" as const },
+  { name: "Book a Call", to: "/contact" as const, isCTA: true },
 ];
 
 export const LEGAL_LINKS = [

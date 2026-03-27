@@ -22,18 +22,39 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Left: Title */}
-        <Link to="/" className="text-xl font-bold tracking-tighter">
-          GLEN.PORTFOLIO
-        </Link>
+        {/* Left: Title + Status Badge */}
+        <div className="flex items-center gap-4 shrink-0">
+          <Link
+            to="/"
+            className="text-xl font-black tracking-tighter uppercase"
+          >
+            Glen<span className="text-blue-500">.</span>
+          </Link>
+
+          {/* NEW: STATUS BADGE */}
+          <div className="flex flex-row items-center whitespace-nowrap gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-300 dark:border-emerald-800">
+            <div className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+              Accepting Projects
+            </span>
+          </div>
+        </div>
 
         {/* Middle: Desktop Links */}
-        <div className="hidden md:flex gap-6">
+        <div className="hidden md:flex items-center justify-center flex-1 gap-2 lg:gap-4 mx-4">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className="text-sm font-medium hover:text-blue-500 transition-colors [&.active]:text-blue-600 [&.active]:font-bold"
+              className={
+                link.isCTA
+                  ? "px-5 py-2.5 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20 active:scale-95 ml-2"
+                  : `text-[11px] font-black uppercase tracking-widest hover:text-blue-500 transition-colors 
+            ${link.name === "FAQ" || link.name === "Tech Stack" ? "hidden 2xl:block" : ""}`
+              }
             >
               {link.name}
             </Link>

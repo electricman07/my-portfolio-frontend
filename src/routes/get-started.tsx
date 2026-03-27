@@ -1,5 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Rocket, MessageSquare, ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  Rocket,
+  MessageSquare,
+  ArrowRight,
+  CheckCircle2,
+  Calendar,
+} from "lucide-react";
 
 export const Route = createFileRoute("/get-started")({
   component: GetStartedPage,
@@ -64,8 +70,27 @@ function GetStartedPage() {
           </span>
         </Link>
       </div>
+      {/* Option 3: Discovery Call (Placeholder) */}
+      <div className="group p-10 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[3rem] shadow-xl opacity-80 hover:opacity-100 transition-all">
+        <div className="w-16 h-16 bg-emerald-500 text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-emerald-500/30">
+          <Calendar size={32} />
+        </div>
+        <h3 className="text-3xl font-black tracking-tight mb-4">
+          Discovery Call
+        </h3>
+        <p className="text-slate-600 dark:text-slate-400 font-medium mb-8">
+          Direct scheduling is coming soon. For now, please use the contact form
+          to request a time.
+        </p>
+        <Link
+          to="/contact"
+          className="inline-flex items-center gap-2 text-emerald-600 font-black uppercase tracking-widest text-xs"
+        >
+          Request a Meeting <ArrowRight size={16} />
+        </Link>
+      </div>
 
-      {/* 3. VALUE PROPS */}
+      {/* 4. VALUE PROPS */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10">
         {["Expert Code", "Modern UI", "SEO Ready", "Fast Delivery"].map(
           (text) => (
