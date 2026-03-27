@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Override the default white color with WhiteSmoke */
+  --color-white: #f5f5f5;
+}
+
+@layer base {
+  html {
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  body {
+    @apply bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100;
+  }
+}
+
+input[type="month"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5); /* Makes the icon visible on dark backgrounds */
+  cursor: pointer;
+}
