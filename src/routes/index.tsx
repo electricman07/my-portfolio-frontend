@@ -4,6 +4,9 @@ import { ProjectSlider } from "../components/home/ProjectSlider";
 import { ServicesSummary } from "../components/home/ServicesSummary";
 import { useHomeData, useLatestProjects } from "../hooks/useHome";
 import { Loader2 } from "lucide-react";
+import { ContactCTA } from "../components/ui/ContactCTA";
+import { Reveal } from "../components/ui/Reveal";
+import { TestimonialsSummary } from "#/components/home/TestimonialsSummary";
 
 import "../styles.css";
 
@@ -39,10 +42,24 @@ function App() {
       />
 
       {/* Slider using real project data */}
-      <ProjectSlider projects={projects} />
+      <Reveal delay={0.1}>
+        <ProjectSlider projects={projects} />
+      </Reveal>
 
       {/* Services summary (can also be made dynamic similar to About) */}
-      <ServicesSummary />
+      <Reveal delay={0.2}>
+        <ServicesSummary />
+      </Reveal>
+
+      <Reveal delay={0.3}>
+        <TestimonialsSummary />
+      </Reveal>
+
+      <Reveal delay={0.4}>
+        <div className="max-w-7xl mx-auto px-6 pb-20">
+          <ContactCTA />
+        </div>
+      </Reveal>
     </div>
   );
 }

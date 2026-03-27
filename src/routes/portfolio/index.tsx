@@ -67,7 +67,7 @@ function PortfolioPage() {
     navigate({ search: (prev) => ({ ...prev, search: "", page: 1 }) });
 
   return (
-    <div className="max-w-7xl mx-5 py-12 space-y-12 animate-in fade-in duration-700">
+    <div className="max-w-7xl mx-auto px-6 py-20 space-y-20 animate-in fade-in duration-700">
       <header className="max-w-3xl">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
           Selected Works

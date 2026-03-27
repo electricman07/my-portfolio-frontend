@@ -62,7 +62,7 @@ function RouteComponent() {
   const pageCount = (response as any)?.meta?.pagination?.pageCount || 1;
 
   return (
-    <div className="max-w-7xl mx-5 py-12 space-y-8 animate-in fade-in duration-700">
+    <div className="max-w-7xl mx-auto px-6 py-20 space-y-20 animate-in fade-in duration-700">
       <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-slate-200 dark:border-slate-800 pb-8">
         <div className="max-w-xl w-full space-y-4">
           <h1 className="text-4xl font-bold tracking-tight">

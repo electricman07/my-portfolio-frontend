@@ -25,7 +25,7 @@ function RouteComponent() {
     : responseData?.data || [];
 
   return (
-    <div className="max-w-7xl mx-5 py-12 space-y-16 animate-in fade-in duration-700">
+    <div className="max-w-7xl mx-auto py-20  px-6 space-y-20 animate-in fade-in duration-700">
       <header className="max-w-3xl mx-auto text-center space-y-4">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
           Expert Solutions

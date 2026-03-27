@@ -2,9 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { TechCard } from "../../components/tech/TechCard";
 import { useTechStack } from "../../hooks/useStrapi";
 import { getTechIcon } from "../../lib/textIcons";
+import { z } from "zod";
 
 export const Route = createFileRoute("/tech-stack/")({
+  validateSearch: (search) => techSearchSchema.parse(search),
   component: RouteComponent,
+});
+
+const techSearchSchema = z.object({
+  page: z.number().optional().catch(1),
+  q: z.string().optional().catch(""),
 });
 
 // const TECH_DATA = [
@@ -44,7 +51,7 @@ function RouteComponent() {
       </div>
     );
   return (
-    <div className="max-w-7xl mx-5 py-12 space-y-16 animate-in fade-in duration-700">
+    <div className="max-w-7xl mx-auto py-20 px-6 space-y-20 animate-in fade-in duration-700">
       <header className="max-w-3xl mx-auto text-center">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
           The Engine Behind My Work
