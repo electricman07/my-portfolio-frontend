@@ -9,6 +9,13 @@ interface TechCardProps {
   color: string;
 }
 
+const premiumCardClasses = `
+    p-6 flex flex-col items-center justify-center gap-4 text-center
+    bg-[#F8FAFC] dark:bg-slate-900 
+    border-2 border-slate-300 dark:border-slate-600 
+    rounded-[2rem] shadow-sm hover:border-blue-500 transition-all duration-300
+  `;
+
 export function TechCard({ id, name, Icon, color }: TechCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -18,7 +25,7 @@ export function TechCard({ id, name, Icon, color }: TechCardProps) {
       params={{ techId: id }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group p-10 flex flex-col items-center justify-center gap-6 transition-all duration-500 ease-out bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[2.5rem] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] hover:-translate-y-3 hover:shadow-2xl hover:border-blue-500 cursor-pointer"
+      className={premiumCardClasses}
     >
       <div className="w-20 h-20 flex items-center justify-center rounded-3xl bg-slate-50 dark:bg-slate-900 group-hover:bg-white dark:group-hover:bg-slate-800 transition-colors duration-500 shadow-inner">
         <Icon

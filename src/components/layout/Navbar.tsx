@@ -22,16 +22,31 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b-2 border-slate-300 dark:border-slate-800 bg-slate-200/90 dark:bg-slate-950/90 backdrop-blur-md transition-colors duration-500 shadow-[0_4px_20px_-5px_rgba(15,23,42,0.1)]">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Left: Title + Status Badge */}
         <div className="flex items-center gap-4 shrink-0">
           <Link
             to="/"
-            className="text-xl font-black tracking-tighter uppercase"
+            className="flex items-center gap-3 group transition-transform active:scale-95"
           >
-            Glen<span className="text-blue-500">.</span>
+            <div className="w-9 h-9 rounded-xl overflow-hidden border-2 border-slate-300 dark:border-slate-800 shadow-sm group-hover:border-blue-500 transition-all">
+              <img
+                src="../../../public/Avatar50.png"
+                alt="Glen"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
+
+              <div className="w-full h-full bg-blue-600 flex items-center justify-center text-white font-black text-xs">
+                G
+              </div>
+            </div>
+
+            <span className="text-xl font-black tracking-tighter uppercase text-slate-900 dark:text-white">
+              Glen<span className="text-blue-500">.</span>
+            </span>
           </Link>
 
-          {/* NEW: STATUS BADGE */}
           <div className="flex flex-row items-center whitespace-nowrap gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-300 dark:border-emerald-800">
             <div className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>

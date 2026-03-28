@@ -64,8 +64,8 @@ function FAQPage() {
             />
           ))
         ) : (
-          <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
-            <p className="text-slate-400 font-bold italic">
+          <div className="text-center py-20 bg-[#F8FAFC] dark:bg-slate-900 rounded-[3rem] border-2 border-slate-300 dark:border-slate-600 shadow-sm">
+            <p className="text-slate-400 font-black uppercase tracking-widest text-xs italic">
               No questions found in the backend.
             </p>
           </div>

@@ -6,6 +6,13 @@ export function BlogCard({ post }: { post: any }) {
 
   if (!post) return null;
 
+  const premiumCardClasses = `
+    p-8 flex flex-col h-full
+    bg-[#F8FAFC] dark:bg-slate-900 
+    border-2 border-slate-300 dark:border-slate-600 
+    rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all
+  `;
+
   const tagsData = post.tags;
   const safeTags = Array.isArray(tagsData)
     ? tagsData
@@ -14,7 +21,7 @@ export function BlogCard({ post }: { post: any }) {
       : [];
 
   return (
-    <article className="group flex flex-col h-full transition-all duration-500 ease-out bg-slate-50 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[2.5rem] overflow-hidden shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)]hover:-translate-y-3 hover:shadow-2xl hover:border-blue-500">
+    <article className={premiumCardClasses}>
       {/* IMAGE SECTION */}
       <div className="aspect-16/10 overflow-hidden bg-slate-100 dark:bg-slate-900 border-b-2 border-slate-200 dark:border-slate-800">
         <Link

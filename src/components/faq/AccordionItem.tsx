@@ -15,7 +15,20 @@ export function AccordionItem({
 }: AccordionItemProps) {
   return (
     <div
-      className={`transition-all duration-500 ease-out bg-white dark:bg-slate-950 border-2 rounded-4xl overflow-hidden ${isOpen ? "border-blue-500 shadow-2xl scale-[1.02]" : "border-slate-300 dark:border-slate-800 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)]"} hover:border-blue-500 hover:shadow-xl`}
+      className={`
+        overflow-hidden transition-all duration-500
+        /* LIGHT: Pearl / Slate-300 */
+        bg-[#F8FAFC] border-2 
+        /* DARK: High-Contrast Slate-600 */
+        dark:bg-slate-900 
+        /* BORDER LOGIC: Blue if open, Slate if closed */
+        ${
+          isOpen
+            ? "border-blue-500 shadow-xl -translate-y-1"
+            : "border-slate-300 dark:border-slate-600 shadow-sm"
+        } 
+        rounded-[2.5rem]
+      `}
     >
       <button
         onClick={onClick}

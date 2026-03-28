@@ -47,14 +47,8 @@ export function ContactForm() {
   }
 
   const inputClasses = `
-    w-full px-8 py-5 rounded-[2rem] 
-    bg-white dark:bg-slate-900 
-    border-2 border-slate-300 dark:border-slate-800 
-    text-slate-900 dark:text-white font-medium
-    placeholder:text-slate-400 placeholder:font-bold placeholder:uppercase placeholder:text-[10px] placeholder:tracking-[0.2em]
-    focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 
-    outline-none transition-all duration-300 shadow-sm
-  `;
+  w-full px-8 py-5 rounded-[2rem] bg-slate-50 dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white font-mediumfocus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all duration-300
+`;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8 p-2">
