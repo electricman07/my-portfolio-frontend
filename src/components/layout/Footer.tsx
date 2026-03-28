@@ -10,13 +10,13 @@ export function Footer() {
   };
 
   return (
-    <footer className="mt-auto border-t-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 transition-colors duration-300">
+    <footer className="mt-auto border-t-2 border-slate-300 dark:border-slate-800 bg-slate-800 dark:bg-slate-950 transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-8 py-16">
         <div className="flex flex-col md:flex-row justify-between items-center gap-12">
           {/* 1. BRANDING & COPYRIGHT */}
           <div className="space-y-4 text-center md:text-left">
-            <h3 className="text-xl font-black tracking-tighter uppercase">
-              Glen<span className="text-blue-500">.</span>
+            <h3 className="text-xl font-black tracking-tighter uppercase text-white">
+              Glen<span className="text-blue-400">.</span>
             </h3>
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
               © {currentYear} All Rights Reserved.
@@ -29,7 +29,7 @@ export function Footer() {
               <Link
                 key={item.to}
                 to={item.to as any}
-                className="text-xs font-black uppercase tracking-widest text-slate-500 hover:text-blue-500 transition-colors"
+                className="text-xs font-black uppercase tracking-widest text-slate-300 hover:text-blue-400 transition-colors"
               >
                 {item.name}
               </Link>
