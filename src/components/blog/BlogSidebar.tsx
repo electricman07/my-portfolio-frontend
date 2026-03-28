@@ -89,7 +89,7 @@ export function BlogSidebar() {
       )}
 
       {/* 2. ARCHIVES SECTION */}
-      <section className="p-8 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[2.5rem] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)]">
+      <section className="p-8 bg-slate-50 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[2.5rem] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)]">
         <h4 className="flex items-center gap-2 font-black text-xs uppercase tracking-widest text-slate-400 border-b-2 border-slate-100 dark:border-slate-800 pb-4 mb-6">
           <CalendarIcon size={16} className="text-blue-500" /> Archives
         </h4>
@@ -147,7 +147,7 @@ export function BlogSidebar() {
       </section>
 
       {/* 3. KEYWORDS SECTION */}
-      <section className="p-8 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[2.5rem] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)]">
+      <section className="p-8 bg-slate-50 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[2.5rem] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)]">
         <h4 className="flex items-center gap-2 font-black text-xs uppercase tracking-widest text-slate-400 border-b-2 border-slate-100 dark:border-slate-800 pb-4 mb-6">
           <Tag size={16} className="text-blue-500" /> Keywords
         </h4>
@@ -166,7 +166,7 @@ export function BlogSidebar() {
       </section>
 
       {/* 4. AUTHORS SECTION */}
-      <section className="p-8 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[2.5rem] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)]">
+      <section className="p-8 bg-slate-50 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[2.5rem] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)]">
         <h4 className="flex items-center gap-2 font-black text-xs uppercase tracking-widest text-slate-400 border-b-2 border-slate-100 dark:border-slate-800 pb-4 mb-6">
           <User size={16} className="text-blue-500" /> Authors
         </h4>

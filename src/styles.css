@@ -9,6 +9,44 @@
 }
 
 @layer base {
+  body {
+    /* High-contrast headings but soft body text */
+    @apply text-slate-600 dark:text-slate-400;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    /* Deep slate instead of pure black for a "calmer" feel */
+    @apply text-slate-900 dark:text-white font-black tracking-tighter;
+  }
+  /* This makes your white cards feel like they are floating on the Slate background */
+  .premium-card {
+    @apply bg-white dark:bg-slate-900 
+           border-2 border-slate-200 dark:border-slate-800 
+           shadow-[0_8px_30px_rgb(0,0,0,0.04)] 
+           rounded-[2.5rem];
+  }
+
+  @layer components {
+    .premium-card {
+      /* TINTED WHITE (Pearl) - Much softer on the eyes */
+      background-color: #f8fafc;
+
+      /* DARKER BORDER - Creates a clear frame without needing brightness */
+      border: 2px solid #cbd5e1;
+
+      /* DEEP MUDDY SHADOW - No glow, just weight */
+      box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.1);
+
+      border-radius: 2.5rem;
+      @apply dark:bg-slate-900 dark:border-slate-800;
+    }
+  }
+
   html {
     transition:
       background-color 0.3s ease,

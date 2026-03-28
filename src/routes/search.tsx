@@ -41,7 +41,6 @@ function SearchResultsPage() {
           Search: {q}
         </h1>
 
-        {/* FIX: Use a Fragment <> </> to wrap multiple elements inside the conditional */}
         {recent.length > 0 && (
           <>
             <div className="flex flex-wrap items-center gap-3 mt-4">

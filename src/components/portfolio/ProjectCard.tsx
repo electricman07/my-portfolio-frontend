@@ -30,7 +30,7 @@ export function ProjectCard({
 
   return (
     <>
-      <div className="group relative flex flex-col h-full transition-all duration-500 ease-out bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] rounded-[2.5rem] overflow-hidden hover:-translate-y-3 hover:shadow-2xl hover:border-blue-500">
+      <div className="group relative flex flex-col h-full transition-all duration-500 ease-out bg-slate-50 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] rounded-[2.5rem] overflow-hidden hover:-translate-y-3 hover:shadow-2xl hover:border-blue-500">
         {/* IMAGE & LINK SECTION */}
         <Link
           to="/portfolio/$projectId"

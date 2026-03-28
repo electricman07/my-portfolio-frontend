@@ -5,7 +5,7 @@ import qs from "qs";
 // 1. Setup Environment Variables
 // Vite requires the VITE_ prefix to expose variables to the client
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
-const STRAPI_TOKEN = import.meta.env.VITE_STRAPI_API_TOKEN;
+const STRAPI_TOKEN = import.meta.env.VITE_STRAPI_TOKEN;
 
 /**
  * Global fetcher for Strapi 5

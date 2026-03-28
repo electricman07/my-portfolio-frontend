@@ -6,7 +6,7 @@ export function Home() {
   return (
     <div className="space-y-32 pb-32">
       <Hero />
-      <ProjectSlider />
+      <ProjectSlider projects={[]} />
       <ServicesSummary />
     </div>
   );

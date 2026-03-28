@@ -20,7 +20,7 @@ export function Navbar() {
   }, [isOpen]);
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Left: Title + Status Badge */}
         <div className="flex items-center gap-4 shrink-0">

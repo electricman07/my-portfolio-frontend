@@ -116,7 +116,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
-      <body className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)] bg-[#F5F5F5] dark:bg-slate-950 transition-colors duration-300">
+      <body className="font-sans antialiased bg-[#E2E8F0] dark:bg-slate-950 text-slate-700 dark:text-slate-400 transition-colors duration-500">
         <QueryClientProvider client={queryClient}>
           <Navbar />
 
