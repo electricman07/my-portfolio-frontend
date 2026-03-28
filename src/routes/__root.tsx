@@ -33,12 +33,15 @@ export const Route = createRootRouteWithContext<any>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
-      <body className="font-sans antialiased bg-slate-200 dark:bg-slate-950 transition-colors duration-500">
+      <body
+        className="font-sans antialiased bg-slate-200 dark:bg-slate-950 transition-colors duration-500"
+        suppressHydrationWarning
+      >
         <QueryClientProvider client={queryClient}>
           {children}
         </QueryClientProvider>
