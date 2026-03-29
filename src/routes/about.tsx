@@ -28,7 +28,7 @@ function AboutPage() {
       </div>
     );
 
-  const about = aboutResponse?.data || aboutResponse;
+  const about = aboutResponse?.data;
 
   const values = Array.isArray(about?.coreValues) ? about.coreValues : [];
 
@@ -64,33 +64,85 @@ function AboutPage() {
 
       {/* 2. SECONDARY TEXT SECTION: Now full width below the image/intro */}
       {about.secondaryDescription && (
-        <section className="max-w-4xl mx-auto prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-400 text-center">
+        <section className="max-w-4xl mx-auto prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-400">
           <BlocksRenderer content={about.secondaryDescription} />
         </section>
       )}
 
-      {/* 3. EDUCATION & EXPERIENCE: Side by Side below the text */}
+      {/* 3. EDUCATION & EXPERIENCE: Mapping the data */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Education Box */}
-        <div className="p-10 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[3rem] shadow-xl">
-          <h3 className="text-3xl font-black mb-8 flex items-center gap-3">
-            <span className="tracking-tighter text-blue-600">
-              <FaGraduationCap />
-              Education
-            </span>
+        <div className="p-10 bg-[#F8FAFC] dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 rounded-[3rem] shadow-sm">
+          <h3 className="text-3xl font-black mb-10 flex items-center gap-3 tracking-tighter text-blue-600">
+            <FaGraduationCap size={32} />
+            Education
           </h3>
-          {/* Map education items here */}
+          <div className="space-y-10">
+            {/* Array.isArray check prevents the .map crash */}
+            {Array.isArray(about.education) ? (
+              about.education.map((edu: any) => (
+                <div
+                  key={edu.id}
+                  className="relative pl-8 border-l-2 border-slate-200 dark:border-slate-800"
+                >
+                  <div className="absolute -left-2.25 top-2 w-4 h-4 rounded-full bg-blue-600 border-4 border-[#F8FAFC] dark:border-slate-900" />
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-500">
+                      {edu.yearRange}
+                    </span>
+                    <h4 className="text-xl font-black tracking-tight">
+                      {edu.courseName}
+                    </h4>
+                    <p className="text-slate-500 dark:text-slate-400 font-medium italic">
+                      {edu.school}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-slate-400 italic">
+                No education records found or data format incorrect.
+              </p>
+            )}
+          </div>
         </div>
 
         {/* Experience Box */}
-        <div className="p-10 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[3rem] shadow-xl">
-          <h3 className="text-3xl font-black mb-8 flex items-center gap-3">
-            <span className="tracking-tighter text-blue-600">
-              <FaBriefcase />
-              Experience
-            </span>
+        <div className="p-10 bg-[#F8FAFC] dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 rounded-[3rem] shadow-sm">
+          <h3 className="text-3xl font-black mb-10 flex items-center gap-3 tracking-tighter text-blue-600">
+            <FaBriefcase size={32} />
+            Experience
           </h3>
-          {/* Map experience items here */}
+          <div className="space-y-10">
+            {Array.isArray(about.experience) ? (
+              about.experience.map((exp: any) => (
+                <div
+                  key={exp.id}
+                  className="relative pl-8 border-l-2 border-slate-200 dark:border-slate-800"
+                >
+                  <div className="absolute -left-2.25 top-2 w-4 h-4 rounded-full bg-blue-600 border-4 border-[#F8FAFC] dark:border-slate-900" />
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-500">
+                      {exp.duration}
+                    </span>
+                    <h4 className="text-xl font-black tracking-tight">
+                      {exp.jobTitle}
+                    </h4>
+                    <p className="text-slate-500 dark:text-slate-400 font-medium italic">
+                      {exp.companyName}
+                    </p>
+                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium mt-2">
+                      {exp.description}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-slate-400 italic">
+                No experience records found or data format incorrect.
+              </p>
+            )}
+          </div>
         </div>
       </section>
 
