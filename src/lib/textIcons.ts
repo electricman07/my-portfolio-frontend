@@ -11,6 +11,7 @@ import {
   SiPostgresql,
   SiMysql,
   SiMongodb,
+  SiStrapi,
 } from "@icons-pack/react-simple-icons";
 
 export const TechIconMap: Record<string, any> = {
@@ -26,6 +27,7 @@ export const TechIconMap: Record<string, any> = {
   SiPostgresql,
   SiMysql,
   SiMongodb,
+  SiStrapi,
 };
 
 export function getTechIcon(name: string) {
