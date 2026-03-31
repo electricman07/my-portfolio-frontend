@@ -5,6 +5,16 @@ import { useState } from "react";
 import { Loader2, AlertCircle } from "lucide-react";
 
 export const Route = createFileRoute("/faq")({
+  head: () => ({
+    meta: [
+      { title: "Frequently Asked Questions | Glen Studio" },
+      {
+        name: "description",
+        content:
+          "Everything you need to know about my web development process, project timelines, maintenance packages, and custom eCommerce solutions.",
+      },
+    ],
+  }),
   component: FAQPage,
 });
 

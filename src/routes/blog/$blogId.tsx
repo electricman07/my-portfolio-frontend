@@ -1,17 +1,51 @@
 import { createFileRoute, useParams, Link } from "@tanstack/react-router";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import { useBlogPost } from "../../hooks/useStrapi";
+import { useBlogPost, fetchBlogPost } from "../../hooks/useStrapi";
 import { Loader2, Calendar, User, ChevronLeft } from "lucide-react";
 import { BlogSidebar } from "../../components/blog/BlogSidebar";
 
 export const Route = createFileRoute("/blog/$blogId")({
+  loader: async ({ params }) => {
+    return await fetchBlogPost(params.blogId);
+  },
+  // 3. Inject SEO Tags
+  head: (ctx) => {
+    const post = ctx.loaderData?.data;
+    if (!post) return { meta: [{ title: "Glen Studio | Insights" }] };
+
+    return {
+      meta: [
+        { title: `${post.title} | Glen Studio` },
+        {
+          name: "description",
+          content:
+            post.excerpt ||
+            post.content?.[0]?.children?.[0]?.text?.substring(0, 160),
+        },
+        // Social Media Tags
+        { property: "og:title", content: post.title },
+        { property: "og:type", content: "article" },
+        { property: "og:image", content: post.coverImage?.url },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "article:published_time", content: post.createdAt },
+      ],
+    };
+  },
   component: BlogDetailPage,
 });
 
 function BlogDetailPage() {
   const { blogId } = useParams({ from: "/blog/$blogId" });
-  const { data: response, isLoading, isError } = useBlogPost(blogId);
+  const response = Route.useLoaderData();
+  const { isLoading, isError } = useBlogPost(blogId);
   const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
+
+  if (!response?.data)
+    return (
+      <div className="py-20 text-center text-red-500 font-black">
+        Article not found.
+      </div>
+    );
 
   if (isLoading)
     return (

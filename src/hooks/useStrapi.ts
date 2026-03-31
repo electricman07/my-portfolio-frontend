@@ -50,6 +50,19 @@ export function useServices() {
   });
 }
 
+export async function fetchTechDetail(id: string) {
+  const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
+
+  // Strapi 5 uses /api/technologies/ID. Use documentId if applicable.
+  const res = await fetch(`${STRAPI_URL}/api/technologies/${id}?populate=*`);
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch technology: ${id}`);
+  }
+
+  return res.json();
+}
+
 export function useTechStack() {
   return useQuery({
     queryKey: ["tech-stack"],
@@ -133,6 +146,18 @@ export function useFaqs() {
     queryFn: () => fetchStrapi<any>("faqs"),
     staleTime: 1000 * 60 * 10, // Cache for 10 minutes
   });
+}
+
+export async function fetchBlogPost(id: string) {
+  const res = await fetch(`${STRAPI_URL}/api/posts/${id}?populate=*`);
+  if (!res.ok) throw new Error("Failed to fetch post");
+  return res.json();
+}
+
+export async function fetchProject(id: string) {
+  const res = await fetch(`${STRAPI_URL}/api/projects/${id}?populate=*`);
+  if (!res.ok) throw new Error("Failed to fetch project");
+  return res.json();
 }
 
 export function useAboutData() {

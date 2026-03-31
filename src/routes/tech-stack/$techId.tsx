@@ -3,9 +3,31 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { getTechIcon } from "../../lib/iconMapper"; // Your fetch helper
 import { ChevronLeft, CheckCircle2, Loader2 } from "lucide-react";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import { useTechDetail } from "#/hooks/useStrapi";
+import { useTechDetail, fetchTechDetail } from "#/hooks/useStrapi";
 
 export const Route = createFileRoute("/tech-stack/$techId")({
+  loader: ({ params }) => fetchTechDetail(params.techId),
+
+  // 2. Set the dynamic SEO
+  head: (ctx) => {
+    const tech = ctx.loaderData?.data;
+    if (!tech) return { meta: [{ title: "Technology Stack | Glen Studio" }] };
+
+    return {
+      meta: [
+        { title: `${tech.name} Expert Development | Glen Studio` },
+        {
+          name: "description",
+          content:
+            tech.description?.substring(0, 160) ||
+            `Professional ${tech.name} development and architectural solutions.`,
+        },
+        // Open Graph for social sharing
+        { property: "og:title", content: `Specialized ${tech.name} Solutions` },
+        { property: "og:image", content: tech.iconUrl },
+      ],
+    };
+  },
   component: TechDetailComponent,
 });
 

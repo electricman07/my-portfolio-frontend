@@ -5,6 +5,16 @@ import { getTechIcon } from "../../lib/textIcons";
 import { z } from "zod";
 
 export const Route = createFileRoute("/tech-stack/")({
+  head: () => ({
+    meta: [
+      { title: "Modern Tech Stack & Expertise | Glen Studio" },
+      {
+        name: "description",
+        content:
+          "Exploring the technologies behind the builds. Specialized in React, TypeScript, Node.js, and the TanStack ecosystem for scalable, type-safe applications.",
+      },
+    ],
+  }),
   validateSearch: (search) => techSearchSchema.parse(search),
   component: RouteComponent,
 });

@@ -5,6 +5,20 @@ import { useServices } from "../hooks/useStrapi";
 import { getIcon } from "../lib/icons";
 
 export const Route = createFileRoute("/services")({
+  head: () => ({
+    meta: [
+      { title: "Specialized Digital Services | Glen Studio" },
+      {
+        name: "description",
+        content:
+          "From high-performance Web Development to intuitive UI/UX Design, I provide end-to-end digital solutions built with React, Strapi, and PostgreSQL.",
+      },
+      {
+        property: "og:title",
+        content: "Digital Services & Capabilities | Glen Studio",
+      },
+    ],
+  }),
   component: RouteComponent,
 });
 
