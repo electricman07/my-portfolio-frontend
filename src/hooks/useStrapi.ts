@@ -189,3 +189,10 @@ export function useContactMutation() {
     },
   });
 }
+
+export async function fetchAboutData() {
+  const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
+  const res = await fetch(`${STRAPI_URL}/api/about?populate=*`);
+  if (!res.ok) throw new Error("Failed to fetch about data");
+  return res.json();
+}

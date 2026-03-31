@@ -4,13 +4,35 @@ import { FaGraduationCap, FaBriefcase } from "react-icons/fa6";
 import { Loader2, AlertCircle } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { fetchAboutData } from "../hooks/useStrapi";
 
 export const Route = createFileRoute("/about")({
+  loader: () => fetchAboutData(),
+
+  head: (ctx) => {
+    const about = ctx.loaderData?.data;
+
+    return {
+      meta: [
+        { title: "About Glen | Full-Stack Developer & Designer" },
+        {
+          name: "description",
+          content:
+            "Learn more about my journey, technical expertise in React and Node.js, and my approach to building premium digital products.",
+        },
+        // Open Graph for social sharing
+        { property: "og:title", content: "Meet the Developer | Glen Studio" },
+        { property: "og:image", content: about?.profileImage?.url },
+        { name: "twitter:card", content: "summary" },
+      ],
+    };
+  },
   component: AboutPage,
 });
 
 function AboutPage() {
-  const { data: aboutResponse, isLoading, isError } = useAboutData();
+  const response = Route.useLoaderData();
+  const { isLoading, isError } = useAboutData();
   const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
 
   if (isLoading)
@@ -20,7 +42,7 @@ function AboutPage() {
       </div>
     );
 
-  if (isError || !aboutResponse)
+  if (isError || !response)
     return (
       <div className="text-center py-20 text-red-500 flex flex-col items-center gap-2">
         <AlertCircle size={40} />
@@ -28,7 +50,7 @@ function AboutPage() {
       </div>
     );
 
-  const about = aboutResponse?.data;
+  const about = response?.data;
 
   const values = Array.isArray(about?.coreValues) ? about.coreValues : [];
 
