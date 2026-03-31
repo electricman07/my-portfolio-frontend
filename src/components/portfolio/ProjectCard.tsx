@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Github, ExternalLink, ArrowUpRight } from "lucide-react";
+import { ExternalLink, ArrowUpRight } from "lucide-react";
+import { SiGithub } from "react-icons/si";
 
 interface ProjectCardProps {
   id: string | number;
@@ -40,7 +41,7 @@ export function ProjectCard({
 
   return (
     <>
-      <div className={premiumCardClasses}>
+      <article className={premiumCardClasses}>
         {/* IMAGE & LINK SECTION */}
         <Link
           to="/portfolio/$projectId"
@@ -91,7 +92,7 @@ export function ProjectCard({
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
-                <Github size={18} /> Code
+                <SiGithub size={18} /> Code
               </a>
             )}
 
@@ -107,7 +108,7 @@ export function ProjectCard({
             )}
           </div>
         </div>
-      </div>
+      </article>
     </>
   );
 }

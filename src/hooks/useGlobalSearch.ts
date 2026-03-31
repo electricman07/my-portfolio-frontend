@@ -5,12 +5,12 @@ export function useGlobalSearch(query: string) {
   return useQuery({
     queryKey: ["global-search", query],
     queryFn: async () => {
-      if (!query) return { projects: [], services: [], posts: [] };
+      // 1. ADD 'faqs: []' to the fallback return
+      if (!query) return { projects: [], services: [], posts: [], faqs: [] };
 
       const safeQuery = encodeURIComponent(query.trim());
 
-      // Strapi 5: We must explicitly populate media/relations for each collection
-      const [projectsRes, servicesRes, postsRes] = await Promise.all([
+      const [projectsRes, servicesRes, postsRes, faqsRes] = await Promise.all([
         fetchStrapi<any>(
           `projects?filters[title][$containsi]=${safeQuery}&populate=*`,
         ),
@@ -20,13 +20,17 @@ export function useGlobalSearch(query: string) {
         fetchStrapi<any>(
           `posts?filters[title][$containsi]=${safeQuery}&populate=*`,
         ),
+        fetchStrapi<any>(
+          `faqs?filters[question][$containsi]=${safeQuery}&populate=*`,
+        ),
       ]);
 
       return {
-        // Strapi 5 returns data directly in a flattened array
         projects: projectsRes?.data || [],
         services: servicesRes?.data || [],
         posts: postsRes?.data || [],
+        // 3. ADD 'faqs' to the final returned object
+        faqs: faqsRes?.data || [],
       };
     },
     enabled: query.length > 0,

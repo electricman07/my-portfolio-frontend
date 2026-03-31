@@ -32,6 +32,12 @@ export function RootLayout({ children }: { children?: React.ReactNode }) {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only fixed top-4 left-4 z-100 bg-blue-600 text-white px-4 py-2 rounded-lg font-bold shadow-xl"
+      >
+        Skip to Content
+      </a>
       <LoadingBar />
       <Navbar />
       <div className="max-w-3xl mx-auto w-full px-4 py-8">
@@ -43,6 +49,7 @@ export function RootLayout({ children }: { children?: React.ReactNode }) {
           <input
             name="q"
             type="text"
+            aria-label="Search the site"
             placeholder="Search projects..."
             className="w-full pl-12 pr-4 py-4 rounded-4xl bg-[#F8FAFC] border-2 border-slate-300 text-slate-900 dark:bg-slate-900 dark:border-slate-600 dark:text-white dark:placeholder-slate-500 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all shadow-sm font-medium text-sm"
           />

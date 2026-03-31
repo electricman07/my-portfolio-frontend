@@ -77,7 +77,10 @@ export function Navbar() {
         </div>
 
         {/* Right: Socials & Toggle */}
-        <div className="flex items-center gap-4">
+        <div
+          className="flex items-center gap-4"
+          aria-label="Social Media links"
+        >
           <div className="hidden lg:flex gap-3 border-r border-slate-300 dark:border-slate-700 pr-4">
             {SOCIALS.map(({ Icon, href, name }) => (
               <a

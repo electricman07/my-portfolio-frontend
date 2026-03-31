@@ -13,6 +13,8 @@ export function AccordionItem({
   isOpen,
   onClick,
 }: AccordionItemProps) {
+  const contentId = `accordion-content-${question.replace(/\s+/g, "-").toLowerCase()}`;
+
   return (
     <div
       className={`
@@ -32,6 +34,8 @@ export function AccordionItem({
     >
       <button
         onClick={onClick}
+        aria-expanded={isOpen}
+        aria-controls={contentId}
         className="w-full px-8 py-6 flex items-center justify-between text-left transition-colors group"
       >
         <span
@@ -52,6 +56,8 @@ export function AccordionItem({
 
       {/* Accordion Content */}
       <div
+        id={contentId}
+        role="region"
         className={`grid transition-all duration-500 ease-in-out ${
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}

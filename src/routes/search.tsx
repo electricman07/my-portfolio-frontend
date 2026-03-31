@@ -5,12 +5,12 @@ import { ProjectCard } from "../components/portfolio/ProjectCard";
 import { ServiceCard } from "../components/services/ServiceCard";
 import { getServiceIcon } from "../lib/iconMapper";
 import { BlogCard } from "../components/blog/BlogCard";
-// 1. Define the Search Schema (What ?q= expects)
+import { AccordionItem } from "../components/faq/AccordionItem";
+
 const searchSchema = z.object({
   q: z.string().optional().catch(""),
 });
 
-// 2. Define the Route and link it to the SearchResultsPage component
 export const Route = createFileRoute("/search")({
   validateSearch: (search) => searchSchema.parse(search),
   component: SearchResultsPage,
@@ -27,12 +27,13 @@ function SearchResultsPage() {
       <div className="py-20 text-center font-bold">Searching for "{q}"...</div>
     );
 
-  // 1. SAFETY: Use optional chaining and default to empty arrays
   const projects = response?.projects || [];
   const services = response?.services || [];
   const posts = response?.posts || [];
+  const faqs = response?.faqs || [];
 
-  const totalResults = projects.length + services.length + posts.length;
+  const totalResults =
+    projects.length + services.length + posts.length + faqs.length;
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12 space-y-16">
@@ -86,7 +87,7 @@ function SearchResultsPage() {
         </div>
       ) : (
         <div className="space-y-24">
-          {/* 2. PROJECTS SECTION */}
+          {/* PROJECTS SECTION */}
           {projects.length > 0 && (
             <section className="space-y-8">
               <h2 className="text-2xl font-black uppercase tracking-widest text-slate-400">
@@ -94,17 +95,13 @@ function SearchResultsPage() {
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {projects.map((project: any) => (
-                  <ProjectCard
-                    key={project.id}
-                    id={project.documentId} // CRITICAL: Use documentId for routing
-                    {...project}
-                  />
+                  <ProjectCard key={project.id} {...project} />
                 ))}
               </div>
             </section>
           )}
 
-          {/* 3. SERVICES SECTION */}
+          {/* SERVICES SECTION */}
           {services.length > 0 && (
             <section className="space-y-8">
               <h2 className="text-2xl font-black uppercase tracking-widest text-slate-400">
@@ -125,7 +122,7 @@ function SearchResultsPage() {
             </section>
           )}
 
-          {/* 4. ARTICLES SECTION */}
+          {/* ARTICLES SECTION */}
           {posts.length > 0 && (
             <section className="space-y-8">
               <h2 className="text-2xl font-black uppercase tracking-widest text-slate-400">
@@ -134,6 +131,28 @@ function SearchResultsPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {posts.map((post: any) => (
                   <BlogCard key={post.id} post={post} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* FAQS SECTION */}
+          {faqs.length > 0 && (
+            <section className="space-y-8">
+              <h2 className="text-2xl font-black uppercase tracking-widest text-slate-400">
+                Matching FAQs ({faqs.length})
+              </h2>
+              <div className="grid gap-4 max-w-4xl">
+                {faqs.map((faq: any) => (
+                  <AccordionItem
+                    key={faq.id}
+                    question={faq.question}
+                    answer={faq.answer}
+                    isOpen={false}
+                    // Since search doesn't have local state for each FAQ,
+                    // this simply provides the prop required by AccordionItem
+                    onClick={() => {}}
+                  />
                 ))}
               </div>
             </section>

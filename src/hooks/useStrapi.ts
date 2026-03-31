@@ -145,6 +145,7 @@ export function useAboutData() {
 
 export function useContactMutation() {
   return useMutation({
+    retry: false,
     mutationFn: async (formData: any) => {
       const response = await fetch(`${STRAPI_URL}/api/messages`, {
         method: "POST",
