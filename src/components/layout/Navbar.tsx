@@ -29,7 +29,7 @@ export function Navbar() {
           >
             <div className="w-9 h-9 rounded-xl overflow-hidden border-2 border-slate-300 dark:border-slate-800 shadow-sm group-hover:border-blue-500 transition-all">
               <img
-                src="../../../public/Avatar50.png"
+                src="/Avatar50.png"
                 alt="Glen"
                 className="w-full h-full object-cover"
                 onError={(e) => {
