@@ -1,3 +1,9 @@
+export interface FooterLink {
+  name: string;
+  to: string;
+  isSpecial?: boolean;
+}
+
 export const NAV_LINKS = [
   { name: "Home", to: "/" as const },
   { name: "About", to: "/about" as const },
@@ -10,8 +16,12 @@ export const NAV_LINKS = [
   { name: "Book a Call", to: "/contact" as const, isCTA: true },
 ];
 
+export const SUPPORT_LINKS: FooterLink[] = [
+  { name: "Support", to: "/support" },
+  { name: "Knowledge Base", to: "/kb" },
+];
+
 export const LEGAL_LINKS = [
-  { name: "Support", to: "/support" as const },
   { name: "Privacy", to: "/privacy" as const },
   { name: "Terms", to: "/terms" as const },
 ];

@@ -1,12 +1,12 @@
-import { createFileRoute, useParams, Link } from "@tanstack/react-router";
-import { useProjectDetail, useRelatedProjects } from "../../hooks/useStrapi";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useRelatedProjects, fetchProject } from "../../hooks/useStrapi";
 import { getTechIcon } from "../../lib/iconMapper";
 import { FaGithub } from "react-icons/fa";
 import { Loader2, ExternalLink, ChevronLeft, ArrowRight } from "lucide-react";
 import { ProjectSlider } from "../../components/home/ProjectSlider";
 
 export const Route = createFileRoute("/portfolio/$projectId")({
-  loader: ({ params }) => useProjectDetail(params.projectId),
+  loader: ({ params }) => fetchProject(params.projectId),
   head: (ctx) => {
     // Extract project safely from loaderData
     const project = ctx.loaderData?.data;
@@ -37,15 +37,13 @@ export const Route = createFileRoute("/portfolio/$projectId")({
 });
 
 function portfolioDetailsComponent() {
-  const { projectId } = useParams({ from: "/portfolio/$projectId" });
   const response = Route.useLoaderData();
   const project = response?.data;
-  const { isLoading } = useProjectDetail(projectId);
-  const { data: relatedResponse } = useRelatedProjects(projectId);
+  const { data: relatedResponse } = useRelatedProjects(project?.documentId);
 
   const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
-
-  if (isLoading)
+  const { status } = Route.useMatch();
+  if (status === "pending") {
     return (
       <div className="py-40 text-center flex flex-col items-center gap-4">
         <Loader2 className="animate-spin text-blue-500" size={40} />
@@ -54,8 +52,9 @@ function portfolioDetailsComponent() {
         </p>
       </div>
     );
+  }
 
-  if (!response?.data)
+  if (!project)
     return (
       <div className="p-20 text-center font-bold text-red-500">
         Project not found.

@@ -31,6 +31,7 @@ function SearchResultsPage() {
   const services = response?.services || [];
   const posts = response?.posts || [];
   const faqs = response?.faqs || [];
+  const kbResults = response?.kb || [];
 
   const totalResults =
     projects.length + services.length + posts.length + faqs.length;
@@ -151,6 +152,25 @@ function SearchResultsPage() {
                     isOpen={false}
                     // Since search doesn't have local state for each FAQ,
                     // this simply provides the prop required by AccordionItem
+                    onClick={() => {}}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+          {/* KNOWLEDGE BASE SECTION */}
+          {kbResults.length > 0 && (
+            <section className="space-y-8">
+              <h2 className="text-xs font-black uppercase tracking-[0.2em] text-blue-500">
+                Troubleshooting & Fixes ({kbResults.length})
+              </h2>
+              <div className="grid gap-4 max-w-4xl">
+                {kbResults.map((item: any) => (
+                  <AccordionItem
+                    key={item.id}
+                    question={item.title} // The Problem
+                    answer={item.fix} // The Solution
+                    isOpen={false}
                     onClick={() => {}}
                   />
                 ))}

@@ -56,7 +56,7 @@ function SupportPage() {
           </div>
           <div className="space-y-2">
             <h3 className="text-2xl font-black tracking-tight">
-              Knowledge Base
+              Frequently Asked Questions
             </h3>
             <p className="text-sm text-slate-500 font-medium px-4">
               Browse our frequently asked questions for instant answers to

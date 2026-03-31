@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronUp } from "lucide-react";
-import { NAV_LINKS, LEGAL_LINKS } from "../../lib/navigation";
+import { NAV_LINKS, SUPPORT_LINKS, LEGAL_LINKS } from "../../lib/navigation";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -36,8 +36,9 @@ export function Footer() {
             ))}
           </nav>
 
-          {/* 3. BACK TO TOP & LEGAL */}
-          <div className="flex flex-col items-center md:items-end gap-6">
+          {/* 3. BACK TO TOP & TIGHT 2x2 GRID */}
+          <div className="flex flex-col items-center md:items-end gap-8">
+            {/* Back to Top Button */}
             <button
               onClick={scrollToTop}
               className="p-3 rounded-full bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 hover:bg-blue-600 hover:text-white transition-all shadow-md group"
@@ -49,16 +50,33 @@ export function Footer() {
               />
             </button>
 
-            <div className="flex gap-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
-              {LEGAL_LINKS.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className="hover:text-blue-500 transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
+            {/* Tight 2x2 Grid - Width constrained to sit under the button */}
+            <div className="grid grid-cols-2 gap-x-2 gap-y-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 w-50">
+              {/* Column 1: Support Group */}
+              <div className="flex flex-col gap-3 text-left">
+                {SUPPORT_LINKS.map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={`transition-colors flex items-center gap-1.5 whitespace-nowrap `}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Column 2: Legal Group */}
+              <div className="flex flex-col gap-3 text-right">
+                {LEGAL_LINKS.map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className="hover:text-blue-500 transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>

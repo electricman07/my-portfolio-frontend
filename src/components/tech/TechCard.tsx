@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 interface TechCardProps {
-  id: string;
+  documentId: string;
   name: string;
   Icon: any;
   color: string;
@@ -16,13 +16,13 @@ const premiumCardClasses = `
     rounded-[2rem] shadow-sm hover:border-blue-500 transition-all duration-300
   `;
 
-export function TechCard({ id, name, Icon, color }: TechCardProps) {
+export function TechCard({ documentId, name, Icon, color }: TechCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Link
       to="/tech-stack/$techId"
-      params={{ techId: id }}
+      params={{ techId: documentId }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={premiumCardClasses}

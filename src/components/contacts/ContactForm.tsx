@@ -90,7 +90,7 @@ export function ContactForm() {
           required
           name="subject"
           type="text"
-          placeholder="What are we building?"
+          placeholder="What can I help you with?"
           className={inputClasses}
         />
       </div>

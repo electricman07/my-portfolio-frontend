@@ -3,7 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { getTechIcon } from "../../lib/iconMapper"; // Your fetch helper
 import { ChevronLeft, CheckCircle2, Loader2 } from "lucide-react";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import { useTechDetail, fetchTechDetail } from "#/hooks/useStrapi";
+import { fetchTechDetail } from "#/hooks/useStrapi";
+import { useRouterState } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/tech-stack/$techId")({
   loader: ({ params }) => fetchTechDetail(params.techId),
@@ -32,20 +33,21 @@ export const Route = createFileRoute("/tech-stack/$techId")({
 });
 
 function TechDetailComponent() {
-  const { techId } = Route.useParams();
-  const { data: response, isFetching, isError } = useTechDetail(techId);
+  const response = Route.useLoaderData();
+  const isLoading = useRouterState({ select: (s) => s.status === "pending" });
 
-  if (isFetching)
+  if (isLoading) {
     return (
       <div className="py-40 text-center flex flex-col items-center gap-4">
         <Loader2 className="animate-spin text-blue-500" size={40} />
-        <p className="text-slate-400 font-bold animate-pulse uppercase tracking-widest text-xs">
+        <p className="text-slate-400 font-black animate-pulse uppercase tracking-widest text-xs">
           Syncing Documentation...
         </p>
       </div>
     );
+  }
 
-  if (isError || !response?.data)
+  if (!response?.data)
     return (
       <div className="py-20 text-center font-bold text-red-500">
         Technology profile not found.

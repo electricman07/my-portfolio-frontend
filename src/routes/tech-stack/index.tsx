@@ -79,7 +79,7 @@ function TechComponent() {
           items.map((tech: any) => (
             <TechCard
               key={tech.id}
-              id={tech.documentId} // Use documentId for Strapi 5 routing
+              documentId={tech.documentId} // Use documentId for Strapi 5 routing
               name={tech.name}
               Icon={getTechIcon(tech.iconName)}
               color={tech.color}
