@@ -15,10 +15,11 @@ function ContactComponent() {
           Let's Connect
         </h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
-          Whether you have a question about my services, want to discuss a
-          potential project, or just want to say hello, I'm here to help. Feel
-          free to reach out using the contact form below or through any of the
-          provided contact information. I look forward to connecting with you!
+          Whether you have a question about my services, neded support,want to
+          discuss a potential project, or just want to say hello, I'm here to
+          help. Feel free to reach out using the contact form below or through
+          any of the provided contact information. I look forward to connecting
+          with you!
         </p>
       </header>
 
