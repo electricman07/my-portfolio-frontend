@@ -6,12 +6,41 @@ import { Loader2, ExternalLink, ChevronLeft, ArrowRight } from "lucide-react";
 import { ProjectSlider } from "../../components/home/ProjectSlider";
 
 export const Route = createFileRoute("/portfolio/$projectId")({
+  loader: ({ params }) => useProjectDetail(params.projectId),
+  head: (ctx) => {
+    // Extract project safely from loaderData
+    const project = ctx.loaderData?.data;
+    if (!project) {
+      return {
+        meta: [{ title: "Loading Project... | Glen Studio" }],
+      };
+    }
+
+    return {
+      meta: [
+        { title: `${project.title} | Glen Studio` },
+        {
+          name: "description",
+          content: project.excerpt || project.description?.substring(0, 160),
+        },
+        // Open Graph / Facebook / LinkedIn
+        { property: "og:title", content: project.title },
+        { property: "og:type", content: "website" },
+        { property: "og:image", content: project.image?.url },
+        // Twitter
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: project.title },
+      ],
+    };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const { projectId } = useParams({ from: "/portfolio/$projectId" });
-  const { data: response, isLoading } = useProjectDetail(projectId);
+  const response = Route.useLoaderData();
+  const project = response?.data;
+  const { isLoading } = useProjectDetail(projectId);
   const { data: relatedResponse } = useRelatedProjects(projectId);
 
   const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
@@ -33,7 +62,6 @@ function RouteComponent() {
       </div>
     );
 
-  const project = response.data;
   const technologies = project.technologies || [];
   const relatedProjects = relatedResponse?.data || [];
 
