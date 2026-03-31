@@ -33,10 +33,10 @@ export const Route = createFileRoute("/portfolio/$projectId")({
       ],
     };
   },
-  component: RouteComponent,
+  component: portfolioDetailsComponent,
 });
 
-function RouteComponent() {
+function portfolioDetailsComponent() {
   const { projectId } = useParams({ from: "/portfolio/$projectId" });
   const response = Route.useLoaderData();
   const project = response?.data;

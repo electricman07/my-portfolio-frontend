@@ -16,7 +16,7 @@ export const Route = createFileRoute("/tech-stack/")({
     ],
   }),
   validateSearch: (search) => techSearchSchema.parse(search),
-  component: RouteComponent,
+  component: TechComponent,
 });
 
 const techSearchSchema = z.object({
@@ -39,7 +39,7 @@ const techSearchSchema = z.object({
 //   { name: "MongoDB", Icon: SiMongodb, color: "#47A24A" },
 // ];
 
-function RouteComponent() {
+function TechComponent() {
   const { data: response, isLoading, isError } = useTechStack();
   if (isLoading)
     return <div className="py-20 text-center">Loading tech stack...</div>;

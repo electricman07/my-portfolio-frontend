@@ -3,10 +3,10 @@ import { ContactForm } from "../components/contacts/ContactForm";
 import { ContactInfo } from "../components/contacts/ContactInfo";
 
 export const Route = createFileRoute("/contact")({
-  component: RouteComponent,
+  component: ContactComponent,
 });
 
-function RouteComponent() {
+function ContactComponent() {
   return (
     <div className="py-12 max-w-6xl mx-auto px-4 space-y-12 animate-in fade-in duration-700">
       {/* Page Introduction */}

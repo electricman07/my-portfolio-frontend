@@ -19,10 +19,10 @@ export const Route = createFileRoute("/services")({
       },
     ],
   }),
-  component: RouteComponent,
+  component: ServiceComponent,
 });
 
-function RouteComponent() {
+function ServiceComponent() {
   const { data: servicesResponse, isLoading, isError } = useServices();
 
   if (isLoading)

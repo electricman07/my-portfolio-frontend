@@ -24,10 +24,10 @@ export const Route = createFileRoute("/blog/")({
       sort: (search.sort as "newest" | "oldest") || "newest",
     };
   },
-  component: RouteComponent,
+  component: BlogComponent,
 });
 
-function RouteComponent() {
+function BlogComponent() {
   const searchParams = Route.useSearch();
   const page = searchParams.page ?? 1;
   const { search, tag, author, sort } = Route.useSearch();
