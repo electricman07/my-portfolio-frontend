@@ -6,6 +6,7 @@ import { fetchFAQsInfinite } from "../hooks/useStrapi";
 import { useEffect, useState } from "react";
 import { Loader2, AlertCircle, HelpCircle } from "lucide-react";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { ClientOnly } from "#/components/ui/ClientOnly";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
@@ -21,44 +22,26 @@ export const Route = createFileRoute("/faq")({
   component: FAQPage,
 });
 
-function FAQPage() {
-  const { ref, inView } = useInView();
+function FAQContent() {
   const [openId, setOpenId] = useState<string | null>(null);
 
+  const { ref, inView } = useInView();
+
   // 1. Setup Infinite Query
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    status,
-    isError,
-  } = useInfiniteQuery({
-    queryKey: ["faqs-infinite"],
-    queryFn: ({ pageParam }) => fetchFAQsInfinite({ pageParam }),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-      const { page, pageCount } = lastPage.meta.pagination;
-      return page < pageCount ? page + 1 : undefined;
-    },
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError } =
+    useInfiniteQuery({
+      queryKey: ["faqs-infinite"],
+      queryFn: ({ pageParam }) => fetchFAQsInfinite({ pageParam }),
+      initialPageParam: 1,
+      getNextPageParam: (lastPage) => {
+        const { page, pageCount } = lastPage.meta.pagination;
+        return page < pageCount ? page + 1 : undefined;
+      },
+    });
 
-  // 2. Trigger fetch when the bottom sensor is visible
   useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, fetchNextPage]);
-
-  if (status === "pending")
-    return (
-      <div className="flex flex-col items-center justify-center py-40 gap-4">
-        <Loader2 className="animate-spin text-blue-500" size={40} />
-        <p className="text-slate-500 font-black uppercase tracking-widest text-xs">
-          Syncing FAQ...
-        </p>
-      </div>
-    );
+    if (inView && hasNextPage) fetchNextPage();
+  }, [inView, hasNextPage]);
 
   if (isError)
     return (
@@ -95,7 +78,6 @@ function FAQPage() {
               <AccordionItem
                 key={faq.id}
                 question={faq.question}
-                // Handle both plain text and Strapi Blocks
                 answer={
                   Array.isArray(faq.answer) ? (
                     <div className="prose prose-slate dark:prose-invert">
@@ -154,5 +136,13 @@ function FAQPage() {
         </p>
       </footer>
     </div>
+  );
+}
+
+function FAQPage() {
+  return (
+    <ClientOnly>
+      <FAQContent />
+    </ClientOnly>
   );
 }

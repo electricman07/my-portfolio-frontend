@@ -32,12 +32,19 @@ function applyThemeMode(mode: ThemeMode) {
 }
 
 export default function ThemeToggle() {
-  const [mode, setMode] = useState<ThemeMode>("auto");
+  const [mounted, setMounted] = useState(false);
+  const [mode, setMode] = useState<ThemeMode>(() => {
+    if (typeof window === "undefined") return "auto";
+    const stored = window.localStorage.getItem("theme");
+    return stored === "light" || stored === "dark" || stored === "auto"
+      ? stored
+      : "auto";
+  });
 
   useEffect(() => {
+    setMounted(true);
     const initialMode = getInitialMode();
     setMode(initialMode);
-    applyThemeMode(initialMode);
   }, []);
 
   useEffect(() => {
@@ -53,6 +60,12 @@ export default function ThemeToggle() {
       media.removeEventListener("change", onChange);
     };
   }, [mode]);
+
+  if (!mounted) {
+    return (
+      <div className="h-[34px] w-[60px] rounded-full border border-(--chip-line) bg-(--chip-bg)" />
+    );
+  }
 
   function toggleMode() {
     const nextMode: ThemeMode =

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { LifeBuoy, Loader2, MessageCircle, ArrowRight } from "lucide-react";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { ClientOnly } from "#/components/ui/ClientOnly";
 
 export const Route = createFileRoute("/kb")({
   loader: () => fetchKB(),
@@ -27,13 +28,14 @@ export function useKBCategories() {
   });
 }
 
-function KnowledgeBasePage() {
+function KBContent() {
   const [activeTab, setActiveTab] = useState("All");
   const { data: catResponse } = useKBCategories();
   const [openId, setOpenId] = useState<string | null>(null);
+
   const { ref, inView } = useInView();
 
-  // 1. THE INFINITE QUERY
+  // THE INFINITE QUERY
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
       queryKey: ["kb-infinite", activeTab],
@@ -41,44 +43,33 @@ function KnowledgeBasePage() {
         fetchKBInfinite({ pageParam, category: activeTab }),
       initialPageParam: 1,
       getNextPageParam: (lastPage) => {
-        // 1. Log the pagination to see exactly what Strapi says
-        console.log("Pagination Meta:", lastPage.meta.pagination);
-
         const { page, pageCount } = lastPage.meta.pagination;
 
-        // 2. Ensure we only return a number if there actually IS a next page
         return page < pageCount ? page + 1 : undefined;
       },
     });
 
-  // 2. TRIGGER FETCH ON SCROLL
+  // TRIGGER FETCH ON SCROLL
   useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, fetchNextPage]);
+    if (inView && hasNextPage) fetchNextPage();
+  }, [inView, hasNextPage]);
 
-  // 3. FLATTEN DATA FOR GROUPING
+  // FLATTEN DATA FOR GROUPING
   const allGuides = data?.pages.flatMap((page) => page.data) || [];
-  console.log("RAW DATA PAGES:", data?.pages);
-  console.log("FLATTENED GUIDES:", allGuides);
 
   const dynamicCategories = [
     "All",
     ...(catResponse?.data?.map((c: any) => c.name) || []),
   ];
 
-  // 4. GROUPING LOGIC (Updated to use 'allGuides')
+  // GROUPING LOGIC
   const groupedGuides = allGuides.reduce((acc: any, guide: any) => {
-    // Extract category names (or fall back to 'General')
     const itemCats =
       guide.categories && guide.categories.length > 0
         ? guide.categories.map((c: any) => c.name)
         : ["General"];
 
     itemCats.forEach((catName: string) => {
-      // 1. If tab is 'All', show all categories
-      // 2. If a specific tab is selected, only show that category's section
       const isMatch =
         activeTab === "All" ||
         catName.toLowerCase() === activeTab.toLowerCase();
@@ -205,5 +196,13 @@ function KnowledgeBasePage() {
         </Link>
       </section>
     </div>
+  );
+}
+
+function KnowledgeBasePage() {
+  return (
+    <ClientOnly>
+      <KBContent />
+    </ClientOnly>
   );
 }
