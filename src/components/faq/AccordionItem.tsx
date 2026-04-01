@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 
 interface AccordionItemProps {
   question: string;
-  answer: string;
+  answer: React.ReactNode;
   isOpen: boolean;
   onClick: () => void;
 }

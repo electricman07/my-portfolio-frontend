@@ -33,16 +33,28 @@ export async function fetchAboutData() {
   return res.json();
 }
 
-export async function fetchKB(category?: string) {
+export async function fetchKB(categoryName?: string) {
   const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
-  let url = `${STRAPI_URL}/api/knowledge-bases?populate=*`;
 
-  if (category && category !== "All") {
-    url += `&filters[category][$eq]=${category}`;
+  // 1. STRAPI 5 FIX: Instead of 'populate=*', we target 'categories' specifically
+  // This prevents the 'knowledge_bases' circular key error
+  let url = `${STRAPI_URL}/api/knowledge-bases?populate[0]=categories`;
+
+  if (categoryName && categoryName !== "All") {
+    // 2. Ensure 'categories' matches your field ID exactly
+    url += `&filters[categories][name][$eq]=${encodeURIComponent(categoryName)}`;
   }
 
+  console.log("Fetching KB URL:", url);
+
   const res = await fetch(url);
-  if (!res.ok) throw new Error("Failed to fetch Knowledge Base");
+
+  if (!res.ok) {
+    const errorBody = await res.json();
+    console.error("Strapi 400 Error Detail:", errorBody);
+    return { data: [] }; // Return empty data so the UI doesn't crash
+  }
+
   return res.json();
 }
 
