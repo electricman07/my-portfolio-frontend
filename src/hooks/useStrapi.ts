@@ -58,6 +58,32 @@ export async function fetchKB(categoryName?: string) {
   return res.json();
 }
 
+export async function fetchKBInfinite({ pageParam = 1, category = "All" }) {
+  const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
+
+  // Use pagination[page] and pagination[pageSize]
+  const catFilter =
+    category !== "All"
+      ? `&filters[categories][name][$eq]=${encodeURIComponent(category)}`
+      : "";
+  const url = `${STRAPI_URL}/api/knowledge-bases?populate=categories&pagination[page]=${pageParam}&pagination[pageSize]=10${catFilter}`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Failed to fetch KB");
+  return res.json();
+}
+
+export async function fetchFAQsInfinite({ pageParam = 1 }) {
+  const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
+
+  // Strapi 5 uses pagination[page] and pagination[pageSize]
+  const url = `${STRAPI_URL}/api/faqs?pagination[page]=${pageParam}&pagination[pageSize]=6&populate=*`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Failed to fetch FAQs");
+  return res.json();
+}
+
 // --- 2. REACT HOOKS (For Lists and Global Data) ---
 export function useBlogPost(id: string) {
   return useQuery({

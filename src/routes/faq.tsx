@@ -1,8 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AccordionItem } from "../components/faq/AccordionItem";
-import { useFaqs } from "../hooks/useStrapi";
-import { useState } from "react";
-import { Loader2, AlertCircle } from "lucide-react";
+import { fetchFAQsInfinite } from "../hooks/useStrapi";
+import { useEffect, useState } from "react";
+import { Loader2, AlertCircle, HelpCircle } from "lucide-react";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
@@ -11,7 +14,7 @@ export const Route = createFileRoute("/faq")({
       {
         name: "description",
         content:
-          "Everything you need to know about my web development process, project timelines, maintenance packages, and custom eCommerce solutions.",
+          "Everything you need to know about my web development process and custom solutions.",
       },
     ],
   }),
@@ -19,10 +22,35 @@ export const Route = createFileRoute("/faq")({
 });
 
 function FAQPage() {
-  const { data: response, isLoading, isError } = useFaqs();
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { ref, inView } = useInView();
+  const [openId, setOpenId] = useState<string | null>(null);
 
-  if (isLoading)
+  // 1. Setup Infinite Query
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+    isError,
+  } = useInfiniteQuery({
+    queryKey: ["faqs-infinite"],
+    queryFn: ({ pageParam }) => fetchFAQsInfinite({ pageParam }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      const { page, pageCount } = lastPage.meta.pagination;
+      return page < pageCount ? page + 1 : undefined;
+    },
+  });
+
+  // 2. Trigger fetch when the bottom sensor is visible
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
+  if (status === "pending")
     return (
       <div className="flex flex-col items-center justify-center py-40 gap-4">
         <Loader2 className="animate-spin text-blue-500" size={40} />
@@ -42,53 +70,87 @@ function FAQPage() {
       </div>
     );
 
-  const faqs = response?.data || (Array.isArray(response) ? response : []);
+  // 3. Flatten the pages into a single list
+  const allFaqs = data?.pages.flatMap((page) => page.data) || [];
 
   return (
-    /* THE FIX: Added mx-auto and increased max-w for better readability */
     <div className="max-w-4xl mx-auto py-20 px-6 space-y-16 animate-in fade-in duration-700">
-      {/* Premium Header Styling */}
       <header className="text-center space-y-6">
-        <h4 className="text-blue-500 font-black uppercase tracking-[0.2em] text-xs">
-          Support
-        </h4>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-black uppercase tracking-widest mx-auto">
+          <HelpCircle size={14} /> Support
+        </div>
         <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight">
           Common Questions.
         </h1>
-        <p className="text-xl text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">
+        <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto">
           Everything you need to know about my process, timeline, and how we can
           build something great together.
         </p>
       </header>
 
-      {/* Accordion Container */}
       <div className="space-y-6">
-        {faqs.length > 0 ? (
-          faqs.map((faq: any, index: number) => (
-            <AccordionItem
-              key={faq.id}
-              question={faq.question}
-              answer={faq.answer}
-              isOpen={openIndex === index}
-              onClick={() => setOpenIndex(openIndex === index ? null : index)}
-            />
-          ))
+        {allFaqs.length > 0 ? (
+          <>
+            {allFaqs.map((faq: any) => (
+              <AccordionItem
+                key={faq.id}
+                question={faq.question}
+                // Handle both plain text and Strapi Blocks
+                answer={
+                  Array.isArray(faq.answer) ? (
+                    <div className="prose prose-slate dark:prose-invert">
+                      <BlocksRenderer content={faq.answer} />
+                    </div>
+                  ) : (
+                    faq.answer
+                  )
+                }
+                isOpen={openId === faq.documentId}
+                onClick={() =>
+                  setOpenId(openId === faq.documentId ? null : faq.documentId)
+                }
+              />
+            ))}
+
+            {/* 4. THE SENSOR ELEMENT */}
+            <div
+              ref={ref}
+              className="py-12 flex flex-col items-center justify-center min-h-25"
+            >
+              {isFetchingNextPage ? (
+                <div className="flex flex-col items-center gap-2">
+                  <Loader2 className="animate-spin text-blue-500" />
+                  <span className="text-[10px] font-black uppercase text-slate-400">
+                    Loading more...
+                  </span>
+                </div>
+              ) : hasNextPage ? (
+                <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest opacity-40">
+                  Scroll for more
+                </span>
+              ) : (
+                <div className="h-px bg-slate-200 dark:bg-slate-800 w-24 opacity-50" />
+              )}
+            </div>
+          </>
         ) : (
-          <div className="text-center py-20 bg-[#F8FAFC] dark:bg-slate-900 rounded-[3rem] border-2 border-slate-300 dark:border-slate-600 shadow-sm">
+          <div className="text-center py-20 bg-slate-50 dark:bg-slate-900 rounded-[3rem] border-2 border-slate-200 dark:border-slate-800">
             <p className="text-slate-400 font-black uppercase tracking-widest text-xs italic">
-              No questions found in the backend.
+              No questions found.
             </p>
           </div>
         )}
       </div>
 
-      {/* Optional Contact CTA */}
-      <footer className="text-center pt-10">
+      <footer className="text-center pt-10 border-t border-slate-100 dark:border-slate-800">
         <p className="text-slate-500 font-medium">
           Still have questions?{" "}
-          <span className="text-blue-600 font-bold hover:underline cursor-pointer">
+          <Link
+            to="/contact"
+            className="text-blue-600 font-bold hover:underline"
+          >
             Contact me directly.
-          </span>
+          </Link>
         </p>
       </footer>
     </div>
