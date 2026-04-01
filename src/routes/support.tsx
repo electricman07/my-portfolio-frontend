@@ -48,7 +48,7 @@ function SupportPage() {
 
         {/* 2. FAQ LINK */}
         <Link
-          to="/faq"
+          to="/kb"
           className="group p-10 bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[3rem] text-center space-y-6 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)] hover:border-blue-500 hover:-translate-y-2 hover:shadow-2xl transition-all duration-500"
         >
           <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
@@ -56,15 +56,14 @@ function SupportPage() {
           </div>
           <div className="space-y-2">
             <h3 className="text-2xl font-black tracking-tight">
-              Frequently Asked Questions
+              Knowledge Base
             </h3>
             <p className="text-sm text-slate-500 font-medium px-4">
-              Browse our frequently asked questions for instant answers to
-              common issues.
+              Browse our Knowledge Base for instant answers to common issues.
             </p>
           </div>
           <span className="inline-flex items-center gap-2 text-blue-600 font-black uppercase tracking-widest text-xs">
-            View FAQs <ArrowRight size={14} strokeWidth={3} />
+            View Knowledge Base <ArrowRight size={14} strokeWidth={3} />
           </span>
         </Link>
       </div>
