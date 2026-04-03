@@ -26,7 +26,7 @@ export function ContactForm() {
 
   if (mutation.isSuccess) {
     return (
-      <div className="bg-[#F8FAFC] dark:bg-slate-900 p-12 rounded-[3rem] border-2 border-emerald-500 shadow-2xl text-center space-y-6 animate-in zoom-in duration-500">
+      <div className="bg-[#F8FAFC] dark:bg-slate-900 mx-4 p-12 rounded-[3rem] border-2 border-emerald-500 shadow-2xl text-center space-y-6 animate-in zoom-in duration-500">
         <div className="w-20 h-20 bg-emerald-50 dark:bg-emerald-900/20 rounded-3xl flex items-center justify-center mx-auto">
           <CheckCircle2 className="text-emerald-500" size={48} />
         </div>
@@ -50,11 +50,11 @@ export function ContactForm() {
   }
 
   const inputClasses = `
-  w-full px-8 py-5 rounded-[2rem] bg-slate-50 dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white font-medium focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all duration-300
+  w-full box-border max-w-full px-6 md:px-8 py-5 rounded-[2rem] bg-slate-50 dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white font-medium focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all duration-300
 `;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 p-2">
+    <form onSubmit={handleSubmit} className="space-y-8 p-4">
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-2">
           <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">

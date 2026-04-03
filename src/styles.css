@@ -47,6 +47,17 @@
     }
   }
 
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    overflow-x: hidden; /* Prevents the whole page from wobbling left/right */
+  }
+
   html {
     transition:
       background-color 0.3s ease,
