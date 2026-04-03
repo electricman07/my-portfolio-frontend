@@ -63,7 +63,7 @@ export default function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="h-[34px] w-[60px] rounded-full border border-(--chip-line) bg-(--chip-bg)" />
+      <div className="h-8.5 w-15 rounded-full border border-(--chip-line) bg-(--chip-bg)" />
     );
   }
 

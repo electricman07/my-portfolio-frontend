@@ -3,6 +3,7 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { useBlogPost, fetchBlogPost } from "../../hooks/useStrapi";
 import { Loader2, Calendar, User, ChevronLeft } from "lucide-react";
 import { BlogSidebar } from "../../components/blog/BlogSidebar";
+import { RelatedProjects } from "../../components/blog/RelatedProjects";
 
 export const Route = createFileRoute("/blog/$blogId")({
   loader: async ({ params }) => {
@@ -59,6 +60,9 @@ function BlogDetailPage() {
     );
 
   const post = response.data; // Strapi 5 flattened response
+
+  console.log("Post keys:", Object.keys(post || {}));
+  console.log("Related Projects Data:", post?.related_projects);
 
   const safeTags = Array.isArray(post.tags) ? post.tags : [];
 
@@ -134,6 +138,8 @@ function BlogDetailPage() {
               </div>
             </div>
           )}
+
+          <RelatedProjects projects={post.related_projects} />
         </article>
 
         {/* 3. RIGHT: SIDEBAR (Span 4) */}

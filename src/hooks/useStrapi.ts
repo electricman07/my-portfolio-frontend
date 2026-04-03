@@ -13,7 +13,9 @@ export async function fetchProject(id: string) {
 }
 
 export async function fetchBlogPost(id: string) {
-  const res = await fetch(`${STRAPI_URL}/api/posts/${id}?populate=*`);
+  const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
+  const url = `${STRAPI_URL}/api/posts/${id}?populate[0]=coverImage&populate[1]=related_projects.image&populate[2]=tags&populate[3]=author`;
+  const res = await fetch(url);
   if (!res.ok) throw new Error("Failed to fetch post");
   return res.json();
 }
