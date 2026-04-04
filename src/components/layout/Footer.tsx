@@ -1,6 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronUp } from "lucide-react";
-import { NAV_LINKS, SUPPORT_LINKS, LEGAL_LINKS } from "../../lib/navigation";
+import {
+  NAV_LINKS_PRIMARY,
+  NAV_LINKS_SECONDARY,
+  SUPPORT_LINKS,
+  LEGAL_LINKS,
+} from "../../lib/navigation";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -25,14 +30,22 @@ export function Footer() {
 
           {/* 2. CENTERED NAVIGATION */}
           <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-            {NAV_LINKS.map((item) => (
-              <Link
+            {[...NAV_LINKS_PRIMARY, ...NAV_LINKS_SECONDARY].map((item) => (
+              <div
                 key={item.to}
-                to={item.to as any}
                 className="text-xs font-black uppercase tracking-widest text-slate-300 hover:text-blue-400 transition-colors"
               >
-                {item.name}
-              </Link>
+                <Link
+                  to={item.to as any}
+                  className={
+                    item.isCTA
+                      ? "px-5 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg active:scale-95"
+                      : "text-[11px] font-black uppercase tracking-widest hover:text-blue-500 transition-colors"
+                  }
+                >
+                  {item.name}
+                </Link>
+              </div>
             ))}
           </nav>
 

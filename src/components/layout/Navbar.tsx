@@ -1,19 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import { FaBars, FaX } from "react-icons/fa6";
 import { ThemeToggle } from "./ThemeToggle";
 import { SOCIALS } from "../../lib/socials";
-import { NAV_LINKS } from "../../lib/navigation";
+import {
+  NAV_LINKS_PRIMARY,
+  NAV_LINKS_SECONDARY,
+  SUPPORT_LINKS,
+  LEGAL_LINKS,
+} from "../../lib/navigation";
+import { FaBars, FaX, FaChevronDown } from "react-icons/fa6";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const moreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    const handleClickOutside = (e: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setIsMoreOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
@@ -22,6 +35,7 @@ export function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b-2 border-slate-300 dark:border-slate-800 bg-slate-200/90 dark:bg-slate-950/90 backdrop-blur-md transition-colors duration-500 shadow-[0_4px_20px_-5px_rgba(15,23,42,0.1)]">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        {/* Logo Section */}
         <div className="flex items-center gap-4 shrink-0">
           <Link
             to="/"
@@ -32,18 +46,10 @@ export function Navbar() {
                 src="/Avatar50.png"
                 alt="Glen"
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
-                }}
               />
-
-              <div className="w-full h-full bg-blue-600 flex items-center justify-center text-white font-black text-xs">
-                G
-              </div>
             </div>
-
             <span className="text-xl font-black tracking-tighter uppercase text-slate-900 dark:text-white">
-              Glen<span className="text-blue-500">.</span>
+              GP Digital Studio<span className="text-blue-500">.</span>
             </span>
           </Link>
 
@@ -58,22 +64,88 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Middle: Desktop Links */}
-        <div className="hidden md:flex items-center justify-center flex-1 gap-2 lg:gap-4 mx-4">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={
-                link.isCTA
-                  ? "px-5 py-2.5 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20 active:scale-95 ml-2"
-                  : `text-[11px] font-black uppercase tracking-widest hover:text-blue-500 transition-colors 
-            ${link.name === "FAQ" || link.name === "Tech Stack" ? "hidden 2xl:block" : ""}`
-              }
-            >
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center flex-1 justify-center gap-6">
+          {NAV_LINKS_PRIMARY.map((link) => (
+            <Link key={link.to} to={link.to}>
               {link.name}
             </Link>
           ))}
+
+          {/* More Options Dropdown */}
+          <div className="relative" ref={moreRef}>
+            <button
+              onClick={() => setIsMoreOpen(!isMoreOpen)}
+              className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest hover:text-blue-500 transition-colors"
+            >
+              More{" "}
+              <span
+                className={` text-[10px] transition-transform duration-300 ${isMoreOpen ? "rotate-180" : ""}`}
+              >
+                <FaChevronDown />
+              </span>
+            </button>
+
+            {isMoreOpen && (
+              <div className="absolute top-full mt-4 w-56 right-0 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl p-2 animate-in fade-in zoom-in-95 duration-200">
+                {/* Secondary Links */}
+                <div className="flex flex-col gap-1">
+                  {NAV_LINKS_SECONDARY.map((link) => (
+                    <div
+                      key={link.to}
+                      className="px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-50 dark:hover:bg-slate-800 hover:text-blue-500 transition-all"
+                    >
+                      <Link
+                        to={link.to}
+                        className={
+                          link.isCTA
+                            ? "px-5 py-2 bg-blue-600 text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg active:scale-95"
+                            : "text-[11px] font-black uppercase tracking-widest hover:text-blue-500 transition-colors"
+                        }
+                        onClick={() => setIsMoreOpen(false)}
+                      >
+                        {link.name}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Divider */}
+                <div className="h-px bg-slate-200 dark:bg-slate-800 my-2 mx-2" />
+
+                {/* Support Links */}
+                <div className="flex flex-col gap-1">
+                  {SUPPORT_LINKS.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => setIsMoreOpen(false)}
+                      className="px-4 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-blue-500 transition-all"
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Divider */}
+                <div className="h-px bg-slate-200 dark:bg-slate-800 my-2 mx-2" />
+
+                {/* Legal Links */}
+                <div className="flex flex-col gap-1">
+                  {LEGAL_LINKS.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => setIsMoreOpen(false)}
+                      className="px-4 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all"
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Right: Socials & Toggle */}
@@ -119,30 +191,22 @@ export function Navbar() {
 
       {/* Mobile Full-Screen Overlay */}
       {isOpen && (
-        <div
-          className={`
-      fixed inset-0 
-      z-40 
-      flex flex-col 
-      h-screen w-screen
-      bg-white dark:bg-slate-950 
-      p-8 pt-24
-      transition-all duration-500 ease-in-out
-      ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}
-    `}
-        >
-          <div className="flex flex-col gap-6 text-center grow justify-center">
-            {NAV_LINKS.map((link) => (
-              <Link key={link.to} to={link.to} onClick={() => setIsOpen(false)}>
+        <div className="fixed inset-0 z-40 bg-white dark:bg-slate-950 p-8 pt-24 overflow-y-auto animate-in slide-in-from-top duration-500">
+          <div className="flex flex-col gap-6 text-center">
+            {[
+              ...NAV_LINKS_PRIMARY,
+              ...NAV_LINKS_SECONDARY,
+              ...SUPPORT_LINKS,
+              ...LEGAL_LINKS,
+            ].map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setIsOpen(false)}
+                className="text-xl font-black uppercase tracking-widest hover:text-blue-500 transition-colors"
+              >
                 {link.name}
               </Link>
-            ))}
-          </div>
-          <div className="pt-10 border-t border-slate-100 dark:border-slate-800 flex justify-center gap-8">
-            {SOCIALS.map(({ Icon, href }, i) => (
-              <a key={i} href={href}>
-                <Icon size={28} />
-              </a>
             ))}
           </div>
         </div>
