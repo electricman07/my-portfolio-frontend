@@ -43,10 +43,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         className="font-sans antialiased bg-slate-200 dark:bg-slate-950 transition-colors duration-500"
         suppressHydrationWarning
       >
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
-        <Scripts />
+        <div className="pt-16">
+          <QueryClientProvider client={queryClient}>
+            {children}
+          </QueryClientProvider>
+          <Scripts />
+        </div>
       </body>
     </html>
   );
