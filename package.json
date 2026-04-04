@@ -12,6 +12,8 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@icons-pack/react-simple-icons": "^13.11.1",
+    "@strapi/blocks-react-renderer": "^1.0.2",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-devtools": "latest",
     "@tanstack/react-router": "latest",
@@ -19,9 +21,16 @@
     "@tanstack/react-router-ssr-query": "latest",
     "@tanstack/react-start": "latest",
     "@tanstack/router-plugin": "^1.132.0",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^12.38.0",
+    "husky": "^9.1.7",
     "lucide-react": "^0.545.0",
+    "qs": "^6.15.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-icons": "^5.6.0",
+    "react-intersection-observer": "^10.0.3",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
