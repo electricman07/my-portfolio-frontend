@@ -22,7 +22,7 @@ export const NAV_LINKS_SECONDARY: NavLink[] = [
   { name: "Tech Stack", to: "/tech-stack" as const },
   { name: "FAQ", to: "/faq" as const },
   // { name: "Contact", to: "/contact" as const },
-  { name: "Book a Call", isCTA: true },
+  { name: "Book a Call", to: "/contact" as const, isCTA: true },
 ];
 
 export const SUPPORT_LINKS: FooterLink[] = [
