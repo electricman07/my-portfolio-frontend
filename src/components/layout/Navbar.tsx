@@ -53,7 +53,7 @@ export function Navbar() {
             </span>
           </Link>
 
-          <div className="flex flex-row items-center whitespace-nowrap gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-300 dark:border-emerald-800">
+          {/* <div className="flex flex-row items-center whitespace-nowrap gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-300 dark:border-emerald-800">
             <div className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -61,13 +61,17 @@ export function Navbar() {
             <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
               Accepting Projects
             </span>
-          </div>
+          </div> */}
         </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center flex-1 justify-center gap-6">
           {NAV_LINKS_PRIMARY.map((link) => (
-            <Link key={link.to} to={link.to}>
+            <Link
+              key={link.to}
+              to={link.to}
+              className="text-[11px] font-black uppercase tracking-widest hover:text-blue-500 transition-colors"
+            >
               {link.name}
             </Link>
           ))}
@@ -191,7 +195,10 @@ export function Navbar() {
 
       {/* Mobile Full-Screen Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-40 bg-white dark:bg-slate-950 p-8 pt-24 overflow-y-auto animate-in slide-in-from-top duration-500">
+        <div
+          className="fixed inset-0 z-40 bg-white dark:bg-slate-950 p-8 pt-24 overflow-y-auto min-h-screen
+        animate-in slide-in-from-top duration-500"
+        >
           <div className="flex flex-col gap-6 text-center">
             {[
               ...NAV_LINKS_PRIMARY,
