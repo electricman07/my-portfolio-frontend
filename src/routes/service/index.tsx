@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { ServiceCard } from "../components/services/ServiceCard";
-import { useServices } from "../hooks/useStrapi";
-import { getIcon } from "../lib/icons";
+import { ServiceCard } from "../../components/services/ServiceCard";
+import { useServices } from "../../hooks/useStrapi";
+import { getIcon } from "../../lib/icons";
 
-export const Route = createFileRoute("/services")({
+export const Route = createFileRoute("/service/")({
   head: () => ({
     meta: [
       { title: "Specialized Digital Services | Glen Studio" },
@@ -54,6 +54,7 @@ function ServiceComponent() {
         {services?.map((service: any) => (
           <ServiceCard
             key={service.id}
+            serviceId={service.slug}
             title={service.title}
             description={service.description}
             icon={getIcon(service.iconName)}

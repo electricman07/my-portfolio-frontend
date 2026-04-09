@@ -1,6 +1,8 @@
+import { Link } from "@tanstack/react-router";
 import { type LucideIcon } from "lucide-react";
 
 interface ServiceCardProps {
+  serviceId: string;
   title: string;
   description: string;
   icon: LucideIcon;
@@ -20,9 +22,14 @@ export function ServiceCard({
   description,
   icon: Icon,
   color,
+  serviceId,
 }: ServiceCardProps) {
   return (
-    <div className={premiumCardClasses}>
+    <Link
+      className={premiumCardClasses}
+      to="/service/$serviceId"
+      params={{ serviceId }}
+    >
       {/* 3. ICON CONTAINER: Tinted background for better definition */}
       <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center mb-8 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors duration-500">
         <Icon
@@ -40,6 +47,12 @@ export function ServiceCard({
       <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium text-sm">
         {description}
       </p>
-    </div>
+      <div className="mt-6 flex items-center text-sm font-bold text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
+        Learn More
+        <span className="ml-2 transition-transform group-hover:translate-x-1">
+          →
+        </span>
+      </div>
+    </Link>
   );
 }

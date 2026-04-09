@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SupportRouteImport } from './routes/support'
-import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as KbRouteImport } from './routes/kb'
@@ -21,9 +20,11 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechStackIndexRouteImport } from './routes/tech-stack/index'
+import { Route as ServiceIndexRouteImport } from './routes/service/index'
 import { Route as PortfolioIndexRouteImport } from './routes/portfolio/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as TechStackTechIdRouteImport } from './routes/tech-stack/$techId'
+import { Route as ServiceServiceIdRouteImport } from './routes/service/$serviceId'
 import { Route as PortfolioProjectIdRouteImport } from './routes/portfolio/$projectId'
 import { Route as BlogBlogIdRouteImport } from './routes/blog/$blogId'
 
@@ -35,11 +36,6 @@ const TermsRoute = TermsRouteImport.update({
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchRoute = SearchRouteImport.update({
@@ -87,6 +83,11 @@ const TechStackIndexRoute = TechStackIndexRouteImport.update({
   path: '/tech-stack/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServiceIndexRoute = ServiceIndexRouteImport.update({
+  id: '/service/',
+  path: '/service/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortfolioIndexRoute = PortfolioIndexRouteImport.update({
   id: '/portfolio/',
   path: '/portfolio/',
@@ -100,6 +101,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
 const TechStackTechIdRoute = TechStackTechIdRouteImport.update({
   id: '/tech-stack/$techId',
   path: '/tech-stack/$techId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiceServiceIdRoute = ServiceServiceIdRouteImport.update({
+  id: '/service/$serviceId',
+  path: '/service/$serviceId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortfolioProjectIdRoute = PortfolioProjectIdRouteImport.update({
@@ -122,14 +128,15 @@ export interface FileRoutesByFullPath {
   '/kb': typeof KbRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
-  '/services': typeof ServicesRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/portfolio/$projectId': typeof PortfolioProjectIdRoute
+  '/service/$serviceId': typeof ServiceServiceIdRoute
   '/tech-stack/$techId': typeof TechStackTechIdRoute
   '/blog/': typeof BlogIndexRoute
   '/portfolio/': typeof PortfolioIndexRoute
+  '/service/': typeof ServiceIndexRoute
   '/tech-stack/': typeof TechStackIndexRoute
 }
 export interface FileRoutesByTo {
@@ -141,14 +148,15 @@ export interface FileRoutesByTo {
   '/kb': typeof KbRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
-  '/services': typeof ServicesRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/portfolio/$projectId': typeof PortfolioProjectIdRoute
+  '/service/$serviceId': typeof ServiceServiceIdRoute
   '/tech-stack/$techId': typeof TechStackTechIdRoute
   '/blog': typeof BlogIndexRoute
   '/portfolio': typeof PortfolioIndexRoute
+  '/service': typeof ServiceIndexRoute
   '/tech-stack': typeof TechStackIndexRoute
 }
 export interface FileRoutesById {
@@ -161,14 +169,15 @@ export interface FileRoutesById {
   '/kb': typeof KbRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
-  '/services': typeof ServicesRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/blog/$blogId': typeof BlogBlogIdRoute
   '/portfolio/$projectId': typeof PortfolioProjectIdRoute
+  '/service/$serviceId': typeof ServiceServiceIdRoute
   '/tech-stack/$techId': typeof TechStackTechIdRoute
   '/blog/': typeof BlogIndexRoute
   '/portfolio/': typeof PortfolioIndexRoute
+  '/service/': typeof ServiceIndexRoute
   '/tech-stack/': typeof TechStackIndexRoute
 }
 export interface FileRouteTypes {
@@ -182,14 +191,15 @@ export interface FileRouteTypes {
     | '/kb'
     | '/privacy'
     | '/search'
-    | '/services'
     | '/support'
     | '/terms'
     | '/blog/$blogId'
     | '/portfolio/$projectId'
+    | '/service/$serviceId'
     | '/tech-stack/$techId'
     | '/blog/'
     | '/portfolio/'
+    | '/service/'
     | '/tech-stack/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -201,14 +211,15 @@ export interface FileRouteTypes {
     | '/kb'
     | '/privacy'
     | '/search'
-    | '/services'
     | '/support'
     | '/terms'
     | '/blog/$blogId'
     | '/portfolio/$projectId'
+    | '/service/$serviceId'
     | '/tech-stack/$techId'
     | '/blog'
     | '/portfolio'
+    | '/service'
     | '/tech-stack'
   id:
     | '__root__'
@@ -220,14 +231,15 @@ export interface FileRouteTypes {
     | '/kb'
     | '/privacy'
     | '/search'
-    | '/services'
     | '/support'
     | '/terms'
     | '/blog/$blogId'
     | '/portfolio/$projectId'
+    | '/service/$serviceId'
     | '/tech-stack/$techId'
     | '/blog/'
     | '/portfolio/'
+    | '/service/'
     | '/tech-stack/'
   fileRoutesById: FileRoutesById
 }
@@ -240,14 +252,15 @@ export interface RootRouteChildren {
   KbRoute: typeof KbRoute
   PrivacyRoute: typeof PrivacyRoute
   SearchRoute: typeof SearchRoute
-  ServicesRoute: typeof ServicesRoute
   SupportRoute: typeof SupportRoute
   TermsRoute: typeof TermsRoute
   BlogBlogIdRoute: typeof BlogBlogIdRoute
   PortfolioProjectIdRoute: typeof PortfolioProjectIdRoute
+  ServiceServiceIdRoute: typeof ServiceServiceIdRoute
   TechStackTechIdRoute: typeof TechStackTechIdRoute
   BlogIndexRoute: typeof BlogIndexRoute
   PortfolioIndexRoute: typeof PortfolioIndexRoute
+  ServiceIndexRoute: typeof ServiceIndexRoute
   TechStackIndexRoute: typeof TechStackIndexRoute
 }
 
@@ -265,13 +278,6 @@ declare module '@tanstack/react-router' {
       path: '/support'
       fullPath: '/support'
       preLoaderRoute: typeof SupportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services': {
-      id: '/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search': {
@@ -337,6 +343,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TechStackIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/service/': {
+      id: '/service/'
+      path: '/service'
+      fullPath: '/service/'
+      preLoaderRoute: typeof ServiceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portfolio/': {
       id: '/portfolio/'
       path: '/portfolio'
@@ -356,6 +369,13 @@ declare module '@tanstack/react-router' {
       path: '/tech-stack/$techId'
       fullPath: '/tech-stack/$techId'
       preLoaderRoute: typeof TechStackTechIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/service/$serviceId': {
+      id: '/service/$serviceId'
+      path: '/service/$serviceId'
+      fullPath: '/service/$serviceId'
+      preLoaderRoute: typeof ServiceServiceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portfolio/$projectId': {
@@ -384,14 +404,15 @@ const rootRouteChildren: RootRouteChildren = {
   KbRoute: KbRoute,
   PrivacyRoute: PrivacyRoute,
   SearchRoute: SearchRoute,
-  ServicesRoute: ServicesRoute,
   SupportRoute: SupportRoute,
   TermsRoute: TermsRoute,
   BlogBlogIdRoute: BlogBlogIdRoute,
   PortfolioProjectIdRoute: PortfolioProjectIdRoute,
+  ServiceServiceIdRoute: ServiceServiceIdRoute,
   TechStackTechIdRoute: TechStackTechIdRoute,
   BlogIndexRoute: BlogIndexRoute,
   PortfolioIndexRoute: PortfolioIndexRoute,
+  ServiceIndexRoute: ServiceIndexRoute,
   TechStackIndexRoute: TechStackIndexRoute,
 }
 export const routeTree = rootRouteImport

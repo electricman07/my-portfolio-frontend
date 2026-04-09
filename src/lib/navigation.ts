@@ -12,7 +12,7 @@ export type NavLink = {
 
 export const NAV_LINKS_PRIMARY: NavLink[] = [
   { name: "Home", to: "/" },
-  { name: "Services", to: "/services" },
+  { name: "Services", to: "/service" },
   { name: "Blog", to: "/blog" },
   { name: "Contact", to: "/contact" },
 ];

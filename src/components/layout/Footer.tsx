@@ -21,7 +21,7 @@ export function Footer() {
           {/* 1. BRANDING & COPYRIGHT */}
           <div className="space-y-4 text-center md:text-left">
             <h3 className="text-xl font-black tracking-tighter uppercase text-white">
-              Glen<span className="text-blue-400">.</span>
+              GP Digital Design<span className="text-blue-400">.</span>
             </h3>
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
               © {currentYear} All Rights Reserved.

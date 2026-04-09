@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchStrapi } from "../../lib/api";
 import { getServiceIcon } from "../../lib/iconMapper";
 import { Loader2 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export function ServicesSummary() {
-  // 1. Fetch services from the backend
   const {
     data: response,
     isLoading,
@@ -34,13 +34,14 @@ export function ServicesSummary() {
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           {services.map((service: any) => {
-            // 2. Dynamically resolve the icon component
             const Icon = getServiceIcon(service.iconName);
 
             return (
-              <div
+              <Link
+                to="/service/$serviceId"
                 key={service.id}
-                className="p-8 text-center rounded-3xl  bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800           shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] hover:border-blue-500 hover:-translate-y-2 hover:shadow-2xl transition-all group"
+                params={{ serviceId: service.slug }}
+                className="relative block p-8 text-center rounded-3xl  bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-800           shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] hover:border-blue-500 hover:-translate-y-2 hover:shadow-2xl transition-all group"
               >
                 <div
                   className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-2xl 
@@ -55,7 +56,7 @@ export function ServicesSummary() {
                 <p className="font-bold text-sm text-slate-800 dark:text-slate-200">
                   {service.title}
                 </p>
-              </div>
+              </Link>
             );
           })}
         </div>

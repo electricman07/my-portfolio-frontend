@@ -43,7 +43,7 @@ export function Navbar() {
             />
           </div>
           <span className="text-xl font-black tracking-tighter uppercase text-slate-900 dark:text-white">
-            GP Digital Studio<span className="text-blue-500">.</span>
+            GP Digital Design<span className="text-blue-500">.</span>
           </span>
         </Link>
 

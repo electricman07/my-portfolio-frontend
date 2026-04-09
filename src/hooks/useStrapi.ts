@@ -13,7 +13,6 @@ export async function fetchProject(id: string) {
 }
 
 export async function fetchBlogPost(id: string) {
-  const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
   const url = `${STRAPI_URL}/api/posts/${id}?populate[0]=coverImage&populate[1]=related_projects.image&populate[2]=tags&populate[3]=author`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("Failed to fetch post");
@@ -22,8 +21,25 @@ export async function fetchBlogPost(id: string) {
 
 export async function fetchTechDetail(id: string) {
   if (!id || id === "undefined") return null;
-  const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
   const res = await fetch(`${STRAPI_URL}/api/tech-stacks/${id}?populate=*`);
+  if (!res.ok) throw new Error(`Failed to fetch technology: ${id}`);
+  if (!res.ok) return null;
+  return res.json();
+}
+
+export async function fetchServiceBySlug(slug: string) {
+  if (!slug) return null;
+  // We use [0] because filters always return an array
+  const url = `${STRAPI_URL}/api/services?filters[slug][$eq]=${slug}&populate=*`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to fetch service: ${slug}`);
+  const json = await res.json();
+  return json.data?.[0] || null;
+}
+
+export async function fetchService(id: string) {
+  if (!id || id === "undefined") return null;
+  const res = await fetch(`${STRAPI_URL}/api/services/${id}?populate=*`);
   if (!res.ok) throw new Error(`Failed to fetch technology: ${id}`);
   if (!res.ok) return null;
   return res.json();
@@ -36,14 +52,8 @@ export async function fetchAboutData() {
 }
 
 export async function fetchKB(categoryName?: string) {
-  const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
-
-  // 1. STRAPI 5 FIX: Instead of 'populate=*', we target 'categories' specifically
-  // This prevents the 'knowledge_bases' circular key error
   let url = `${STRAPI_URL}/api/knowledge-bases?populate[0]=categories`;
-
   if (categoryName && categoryName !== "All") {
-    // 2. Ensure 'categories' matches your field ID exactly
     url += `&filters[categories][name][$eq]=${encodeURIComponent(categoryName)}`;
   }
 
@@ -54,16 +64,13 @@ export async function fetchKB(categoryName?: string) {
   if (!res.ok) {
     const errorBody = await res.json();
     console.error("Strapi 400 Error Detail:", errorBody);
-    return { data: [] }; // Return empty data so the UI doesn't crash
+    return { data: [] };
   }
 
   return res.json();
 }
 
 export async function fetchKBInfinite({ pageParam = 1, category = "All" }) {
-  const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
-
-  // Use pagination[page] and pagination[pageSize]
   const catFilter =
     category !== "All"
       ? `&filters[categories][name][$eq]=${encodeURIComponent(category)}`
@@ -76,9 +83,6 @@ export async function fetchKBInfinite({ pageParam = 1, category = "All" }) {
 }
 
 export async function fetchFAQsInfinite({ pageParam = 1 }) {
-  const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
-
-  // Strapi 5 uses pagination[page] and pagination[pageSize]
   const url = `${STRAPI_URL}/api/faqs?pagination[page]=${pageParam}&pagination[pageSize]=6&populate=*`;
 
   const res = await fetch(url);
@@ -118,14 +122,15 @@ export function useRelatedProjects(excludeId: string) {
 export function useServices() {
   return useQuery({
     queryKey: ["services"],
-    queryFn: () => fetchStrapi<any[]>("services"),
+    // Ensure slug is included in the fields/populate if not global
+    queryFn: () => fetchStrapi<any[]>("services", { populate: "*" }),
   });
 }
 
 export function useTechStack() {
   return useQuery({
     queryKey: ["tech-stack"],
-    queryFn: () => fetchStrapi<any>("tech-stacks"), // Ensure endpoint matches Strapi
+    queryFn: () => fetchStrapi<any>("tech-stacks"),
   });
 }
 
