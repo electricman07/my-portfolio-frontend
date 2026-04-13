@@ -3,7 +3,7 @@ import { useRelatedProjects, fetchProject } from "../../hooks/useStrapi";
 import { getTechIcon } from "../../lib/iconMapper";
 import { FaGithub } from "react-icons/fa";
 import { Loader2, ExternalLink, ChevronLeft, ArrowRight } from "lucide-react";
-import { ProjectSlider } from "../../components/home/ProjectSlider";
+import { RelatedProjects } from "../../components/blog/RelatedProjects";
 
 export const Route = createFileRoute("/portfolio/$projectId")({
   loader: ({ params }) => fetchProject(params.projectId),
@@ -40,6 +40,7 @@ function portfolioDetailsComponent() {
   const response = Route.useLoaderData();
   const project = response?.data;
   const { data: relatedResponse } = useRelatedProjects(project?.documentId);
+  const relatedProjects = relatedResponse?.data || [];
 
   const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
   const { status } = Route.useMatch();
@@ -62,7 +63,6 @@ function portfolioDetailsComponent() {
     );
 
   const technologies = project.technologies || [];
-  const relatedProjects = relatedResponse?.data || [];
 
   const imageUrl = project.image?.url
     ? project.image.url.startsWith("http")
@@ -164,30 +164,21 @@ function portfolioDetailsComponent() {
         </aside>
       </div>
 
-      {/* 3. RELATED PROJECTS (Full Width Breakout) */}
+      {/* RELATED PROJECTS */}
       {relatedProjects.length > 0 && (
-        <section className="pt-24 border-t-2 border-slate-200 dark:border-slate-800">
-          <div className="flex items-end justify-between mb-12">
-            <div className="space-y-2">
-              <h4 className="text-blue-500 font-black uppercase tracking-widest text-xs">
-                Next Up
-              </h4>
-              <h2 className="text-4xl md:text-5xl font-black tracking-tighter">
-                Explore More Work
-              </h2>
-            </div>
-          </div>
-          <ProjectSlider projects={relatedProjects} />
+        <div className="pt-24">
+          <RelatedProjects projects={relatedProjects} />
+
           <div className="text-center mt-16">
             <Link
               to="/portfolio"
               search={{ page: 1, search: "" }}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black rounded-full hover:scale-105 transition-transform"
+              className="inline-flex items-center gap-2 px-10 py-5 bg-blue-600 text-white font-black rounded-full hover:bg-blue-700 hover:scale-105 transition-all shadow-lg shadow-blue-200 dark:shadow-none"
             >
               Back to Portfolio <ArrowRight size={20} />
             </Link>
           </div>
-        </section>
+        </div>
       )}
     </div>
   );

@@ -15,6 +15,7 @@ export const NAV_LINKS_PRIMARY: NavLink[] = [
   { name: "Services", to: "/service" },
   { name: "Blog", to: "/blog" },
   { name: "Contact", to: "/contact" },
+  { name: "Portfolio", to: "/portfolio" },
 ];
 
 export const NAV_LINKS_SECONDARY: NavLink[] = [
