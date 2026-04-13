@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { getTechIcon } from "../../lib/iconMapper"; // Your fetch helper
 import { ChevronLeft, CheckCircle2, Loader2 } from "lucide-react";
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { fetchTechDetail } from "#/hooks/useStrapi";
 import { useRouterState } from "@tanstack/react-router";
 
@@ -128,13 +127,10 @@ function TechDetailComponent() {
         {/* 3. MILESTONES & DESCRIPTION GRID */}
         <div className="grid lg:grid-cols-12 gap-12">
           {/* Main Description */}
-          <div className="lg:col-span-7 prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
-            {tech?.description ? (
-              <BlocksRenderer content={tech.description} />
-            ) : (
-              <p>Documentation for {tech.name} is currently being compiled.</p>
-            )}
-          </div>
+          <div
+            className="lg:col-span-7 prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 font-medium leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: tech.description }}
+          ></div>
 
           {/* Milestones Sidebar */}
           <aside className="lg:col-span-5">
