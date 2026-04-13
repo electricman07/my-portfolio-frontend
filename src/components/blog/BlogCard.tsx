@@ -7,10 +7,10 @@ export function BlogCard({ post }: { post: any }) {
   if (!post) return null;
 
   const premiumCardClasses = `
-    p-8 flex flex-col h-full
-    bg-[#F8FAFC] dark:bg-slate-900 
-    border-2 border-slate-300 dark:border-slate-600 
-    rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all
+    flex flex-col h-full group
+    bg-white dark:bg-slate-900 
+    border-2 border-slate-200 dark:border-slate-800 
+    rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl hover:border-blue-500 transition-all duration-300
   `;
 
   const tagsData = post.tags;
@@ -36,7 +36,7 @@ export function BlogCard({ post }: { post: any }) {
                 : "https://placehold.co"
             }
             alt={post.title}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
           />
         </Link>
       </div>
@@ -44,7 +44,7 @@ export function BlogCard({ post }: { post: any }) {
       {/* CONTENT SECTION */}
       <div className="p-8 flex flex-col grow space-y-5">
         {/* Meta Data */}
-        <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
+        <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">
           <Link
             to="/blog"
             search={(prev: any) => ({
@@ -52,7 +52,7 @@ export function BlogCard({ post }: { post: any }) {
               author: post.author?.name,
               page: 1,
             })}
-            className="flex items-center gap-1.5 hover:text-blue-500 transition-colors"
+            className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
           >
             <User size={14} strokeWidth={3} /> {post.author?.name || "Admin"}
           </Link>
@@ -70,11 +70,11 @@ export function BlogCard({ post }: { post: any }) {
         {/* Title & Excerpt */}
         <div className="space-y-3">
           <Link to="/blog/$blogId" params={{ blogId: post.documentId }}>
-            <h3 className="text-2xl font-black tracking-tighter leading-tight group-hover:text-blue-600 transition-colors">
+            <h3 className="text-2xl font-black tracking-tighter leading-tight text-slate-950 dark:text-white group-hover:text-blue-600 transition-colors">
               {post.title}
             </h3>
           </Link>
-          <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium line-clamp-3">
+          <p className="text-slate-800 dark:text-slate-400 text-sm leading-relaxed font-medium line-clamp-3">
             {post.excerpt ||
               "Dive into this latest insight exploring modern web development and design principles..."}
           </p>
@@ -92,7 +92,7 @@ export function BlogCard({ post }: { post: any }) {
                   tag: tag.name,
                   page: 1,
                 })}
-                className="px-3 py-1 bg-slate-100 dark:bg-slate-900 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-blue-600 hover:text-white transition-all"
+                className="px-3 py-1 bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all"
               >
                 #{tag.name}
               </Link>
@@ -101,7 +101,7 @@ export function BlogCard({ post }: { post: any }) {
         )}
 
         {/* Footer Action */}
-        <div className="mt-auto pt-6 border-t-2 border-slate-100 dark:border-slate-800">
+        <div className="mt-auto pt-6 border-t-2 border-slate-50 dark:border-slate-800">
           <Link
             to="/blog/$blogId"
             params={{ blogId: post.documentId }}

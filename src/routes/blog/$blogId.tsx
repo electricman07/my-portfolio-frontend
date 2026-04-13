@@ -1,5 +1,4 @@
 import { createFileRoute, useParams, Link } from "@tanstack/react-router";
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { useBlogPost, fetchBlogPost } from "../../hooks/useStrapi";
 import { Loader2, Calendar, User, ChevronLeft } from "lucide-react";
 import { BlogSidebar } from "../../components/blog/BlogSidebar";
@@ -61,9 +60,6 @@ function BlogDetailPage() {
 
   const post = response.data; // Strapi 5 flattened response
 
-  console.log("Post keys:", Object.keys(post || {}));
-  console.log("Related Projects Data:", post?.related_projects);
-
   const safeTags = Array.isArray(post.tags) ? post.tags : [];
 
   return (
@@ -82,7 +78,7 @@ function BlogDetailPage() {
         <article className="lg:col-span-8">
           {/* Hero Header */}
           <header className="space-y-6 mb-12 text-left">
-            <div className="flex items-center gap-4 text-sm font-medium text-slate-500">
+            <div className="flex items-center gap-4 text-sm font-medium text-slate-600 dark:text-slate-400">
               <span className="flex items-center gap-1">
                 <User size={16} /> {post.author?.name || "Admin"}
               </span>
@@ -91,7 +87,7 @@ function BlogDetailPage() {
                 {new Date(post.createdAt).toLocaleDateString()}
               </span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
+            <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight text-slate-950 dark:text-white">
               {post.title}
             </h1>
             {post.coverImage && (
@@ -107,11 +103,9 @@ function BlogDetailPage() {
 
           {/* Main Content Body */}
           <div
-            className="prose prose-lg dark:prose-invert max-w-none 
-                          prose-headings:font-black prose-a:text-blue-500 prose-img:rounded-3xl"
-          >
-            {post.content && <BlocksRenderer content={post.content} />}
-          </div>
+            className="prose prose-lg max-w-none text-slate-950 dark:text-slate-200 prose-headings:text-slate-950 dark:prose-headings:text-white prose-headings:font-black prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-3xl"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          ></div>
 
           {/* Footer Tags */}
           {safeTags?.length > 0 && (

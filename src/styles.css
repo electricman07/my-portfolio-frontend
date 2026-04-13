@@ -9,6 +9,20 @@
 }
 
 @layer base {
+  :root {
+    --tw-prose-body: var(--color-slate-950);
+    --tw-prose-headings: var(--color-slate-950);
+    --tw-prose-links: var(--color-blue-600);
+    --tw-prose-bold: var(--color-slate-950);
+    --tw-prose-counters: var(--color-slate-600);
+    --tw-prose-bullets: var(--color-slate-400);
+  }
+
+  /* Keep your dark mode contrast */
+  .dark {
+    --tw-prose-body: var(--color-slate-200);
+    --tw-prose-headings: var(--color-white);
+  }
   body {
     /* High-contrast headings but soft body text */
     @apply text-slate-600 dark:text-slate-400;
