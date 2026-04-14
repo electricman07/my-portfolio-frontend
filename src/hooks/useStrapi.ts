@@ -3,8 +3,7 @@ import { fetchStrapi } from "../lib/api";
 
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
 
-// --- 1. STANDALONE FETCHERS (For TanStack Router Loaders) ---
-// These are the "Source of Truth" for your dynamic pages
+// --- 1. STANDALONE FETCHERS ---
 
 export async function fetchProject(id: string) {
   const res = await fetch(`${STRAPI_URL}/api/projects/${id}?populate=*`);
@@ -29,7 +28,6 @@ export async function fetchTechDetail(id: string) {
 
 export async function fetchServiceBySlug(slug: string) {
   if (!slug) return null;
-  // We use [0] because filters always return an array
   const url = `${STRAPI_URL}/api/services?filters[slug][$eq]=${slug}&populate=*`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to fetch service: ${slug}`);
@@ -56,8 +54,6 @@ export async function fetchKB(categoryName?: string) {
   if (categoryName && categoryName !== "All") {
     url += `&filters[categories][name][$eq]=${encodeURIComponent(categoryName)}`;
   }
-
-  console.log("Fetching KB URL:", url);
 
   const res = await fetch(url);
 
