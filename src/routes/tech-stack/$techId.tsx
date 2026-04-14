@@ -8,22 +8,23 @@ import { useRouterState } from "@tanstack/react-router";
 export const Route = createFileRoute("/tech-stack/$techId")({
   loader: ({ params }) => fetchTechDetail(params.techId),
 
-  // 2. Set the dynamic SEO
   head: (ctx) => {
     const tech = ctx.loaderData?.data;
-    if (!tech) return { meta: [{ title: "Technology Stack | Glen Studio" }] };
+    if (!tech)
+      return { meta: [{ title: "Technology Stack | GP Digital Designs" }] };
 
     return {
       meta: [
-        { title: `${tech.name} Expert Development | Glen Studio` },
+        // Updated Branding
+        { title: `${tech.name} | Tech Stack | GP Digital Designs` },
         {
           name: "description",
           content:
-            tech.description?.substring(0, 160) ||
-            `Professional ${tech.name} development and architectural solutions.`,
+            tech.description?.replace(/<[^>]*>/g, "").substring(0, 160) ||
+            `Professional ${tech.name} development and architectural solutions by GP Digital Designs.`,
         },
-        // Open Graph for social sharing
-        { property: "og:title", content: `Specialized ${tech.name} Solutions` },
+        { property: "og:title", content: `${tech.name} Development Expertise` },
+        { property: "og:site_name", content: "GP Digital Designs" },
         { property: "og:image", content: tech.iconUrl },
       ],
     };
@@ -73,7 +74,7 @@ function TechDetailComponent() {
       <article className="space-y-16">
         {/* 1. HERO HEADER: Thick border & Heavy Shadow */}
         <header className="flex flex-col md:flex-row items-center gap-10">
-          <div className="p-10 rounded-[3rem] bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)]">
+          <div className="p-10 rounded-[3rem] bg-white dark:bg-slate-950 border-2 border-slate-200 dark:border-slate-800 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)]">
             <TechIcon
               size={100}
               style={{ color: brandColor }}
@@ -81,10 +82,10 @@ function TechDetailComponent() {
             />
           </div>
           <div className="text-center md:text-left space-y-2">
-            <h4 className="text-blue-500 font-black uppercase tracking-[0.2em] text-xs">
+            <h4 className="text-blue-600 font-black uppercase tracking-[0.2em] text-xs">
               Technical Profile
             </h4>
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none">
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-slate-950 dark:text-white">
               {tech.name}
             </h1>
           </div>
@@ -97,7 +98,7 @@ function TechDetailComponent() {
               <h3 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400">
                 Current Proficiency
               </h3>
-              <p className="text-3xl font-black tracking-tighter">
+              <p className="text-3xl font-black tracking-tighter text-slate-900 dark:text-slate-100">
                 {proficiency < 50
                   ? "Intermediate"
                   : proficiency < 85
@@ -128,15 +129,15 @@ function TechDetailComponent() {
         <div className="grid lg:grid-cols-12 gap-12">
           {/* Main Description */}
           <div
-            className="lg:col-span-7 prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 font-medium leading-relaxed"
+            className="lg:col-span-7 prose prose-lg dark:prose-invert max-w-none text-slate-900 dark:text-slate-300 font-medium leading-relaxed prose-headings:text-slate-950 dark:prose-headings:text-white"
             dangerouslySetInnerHTML={{ __html: tech.description }}
           ></div>
 
           {/* Milestones Sidebar */}
           <aside className="lg:col-span-5">
             {milestones.length > 0 && (
-              <div className="p-8 bg-slate-100 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-[2.5rem] sticky top-24">
-                <h3 className="text-lg font-black uppercase tracking-widest mb-6">
+              <div className="p-8 bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-[2.5rem] sticky top-24">
+                <h3 className="text-lg font-black uppercase tracking-widest mb-6 text-slate-900 dark:text-white">
                   Key Milestones
                 </h3>
                 <ul className="space-y-4">
@@ -144,10 +145,10 @@ function TechDetailComponent() {
                     <li key={m.id} className="flex items-start gap-3 group">
                       <CheckCircle2
                         size={18}
-                        className="mt-1 shrink-0 transition-colors"
+                        className="mt-1 shrink-0"
                         style={{ color: brandColor }}
                       />
-                      <span className="text-slate-700 dark:text-slate-300 font-bold text-sm leading-tight">
+                      <span className="text-slate-950 dark:text-slate-100 font-bold text-sm leading-tight">
                         {m.item}
                       </span>
                     </li>

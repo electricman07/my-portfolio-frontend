@@ -6,8 +6,8 @@ interface ServiceCardProps {
   title: string;
   description: string;
   icon: LucideIcon;
-  color: string;
-  bg: string;
+  color?: string;
+  bg?: string;
 }
 
 const premiumCardClasses = `
@@ -21,7 +21,7 @@ export function ServiceCard({
   title,
   description,
   icon: Icon,
-  color,
+  color = "#3b82f6",
   serviceId,
 }: ServiceCardProps) {
   return (

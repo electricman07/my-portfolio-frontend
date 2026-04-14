@@ -18,7 +18,12 @@ export const Route = createRootRouteWithContext<any>()({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Glen | Full-Stack Web Developer" },
+      { title: "GP Digital Designs | Premium Web Development" },
+      {
+        name: "description",
+        content:
+          "Expert Full-Stack Web Development & UI/UX Design by GP Digital Designs.",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -40,7 +45,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body
-        className="font-sans antialiased bg-slate-200 dark:bg-slate-950 transition-colors duration-500"
+        className="font-sans antialiased bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-500"
         suppressHydrationWarning
       >
         <div className="pt-16">

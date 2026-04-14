@@ -1,6 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/privacy")({
+  head: () => ({
+    meta: [
+      { title: "Privacy Policy | GP Digital Designs" },
+      {
+        name: "description",
+        content:
+          "Our commitment to protecting your data and maintaining transparency at GP Digital Designs.",
+      },
+    ],
+  }),
   component: PrivacyPage,
 });
 
@@ -8,36 +18,38 @@ function PrivacyPage() {
   return (
     <div className="max-w-4xl mx-auto py-20 px-6 animate-in fade-in duration-700">
       {/* THE PREMIUM LEGAL CARD */}
-      <article className="bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[3rem] p-10 md:p-16 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1)] space-y-12">
+      <article className="bg-white dark:bg-slate-950 border-2 border-slate-200 dark:border-slate-800 rounded-[3rem] p-10 md:p-16 shadow-xl space-y-12">
         {/* HEADER */}
         <header className="space-y-4 border-b-2 border-slate-100 dark:border-slate-800 pb-10">
-          <h4 className="text-blue-500 font-black uppercase tracking-[0.2em] text-xs">
+          <h4 className="text-blue-600 font-black uppercase tracking-[0.2em] text-xs">
             Legal Documentation
           </h4>
-          <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight">
+          {/* FONT COLOR FIX: text-slate-950 */}
+          <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight text-slate-950 dark:text-white">
             Privacy Policy.
           </h1>
-          <p className="text-sm font-black uppercase tracking-widest text-slate-400">
-            Last Updated: March 26, 2026
+          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+            Last Updated: April 14, 2026
           </p>
         </header>
 
         {/* CONTENT BODY */}
         <div
           className="prose prose-lg dark:prose-invert max-w-none 
-                        prose-headings:text-slate-900 dark:prose-headings:text-white 
+                        prose-headings:text-slate-950 dark:prose-headings:text-white 
                         prose-headings:font-black prose-headings:tracking-tight
-                        prose-p:text-slate-600 dark:prose-p:text-slate-400 prose-p:leading-relaxed
-                        prose-li:text-slate-600 dark:prose-li:text-slate-400
+                        /* FONT COLOR FIX: text-slate-900 */
+                        prose-p:text-slate-900 dark:prose-p:text-slate-300 prose-p:leading-relaxed
+                        prose-li:text-slate-900 dark:prose-li:text-slate-300
                         prose-strong:text-blue-600 dark:prose-strong:text-blue-400"
         >
           <section>
             <h2>1. Introduction</h2>
             <p>
-              At <strong>Glen.</strong>, we are committed to protecting your
-              privacy. This policy explains how we collect, use, and safeguard
-              your information when you visit our website or engage with our
-              design and development services.
+              At <strong>GP Digital Designs</strong>, we are committed to
+              protecting your privacy. This policy explains how we collect, use,
+              and safeguard your information when you visit our website or
+              engage with our design and development services.
             </p>
           </section>
 
@@ -53,13 +65,13 @@ function PrivacyPage() {
                 business details provided voluntarily via our contact form.
               </li>
               <li>
-                <strong>Project Data:</strong> Branding assets and technical
-                credentials necessary to complete your web project.
+                <strong>Project Data:</strong> Technical requirements and brand
+                assets necessary to complete your web project.
               </li>
               <li>
                 <strong>Usage Data:</strong> Non-identifying information such as
-                IP address and browser type collected to improve user
-                experience.
+                IP address and browser type collected to improve site
+                performance.
               </li>
             </ul>
           </section>
@@ -77,12 +89,13 @@ function PrivacyPage() {
           </section>
 
           <section>
-            <h2>4. Third-Party Services</h2>
+            <h2>4. Data Storage & Third Parties</h2>
             <p>
               We utilize trusted infrastructure providers like{" "}
-              <strong>Vercel</strong> for hosting and <strong>Strapi</strong>{" "}
-              for content management. We do not sell or trade your personal
-              information with outside parties for marketing purposes.
+              <strong>Cloudflare</strong> for hosting and{" "}
+              <strong>Strapi</strong> for content management. We do not sell,
+              trade, or rent your personal information to third parties for
+              marketing purposes.
             </p>
           </section>
 
@@ -91,23 +104,23 @@ function PrivacyPage() {
             <p>
               You have the right to access, correct, or request the deletion of
               your personal data at any time. If you wish to exercise these
-              rights, please contact us directly.
+              rights, please contact us via our official email.
             </p>
           </section>
 
-          <section className="pt-10 border-t-2 border-slate-50 dark:border-slate-800">
-            <h2>Contact Us</h2>
+          <section className="pt-10 border-t-2 border-slate-100 dark:border-slate-800">
+            <h2 className="text-slate-950 dark:text-white">Contact Us</h2>
             <p>
               If you have any questions regarding this policy, please reach out:
             </p>
-            <p className="font-black text-slate-900 dark:text-white">
-              Email: hello@yourdomain.com <br />
-              Support:{" "}
+            <p className="font-black text-slate-950 dark:text-white">
+              Email: hello@gpdigitaldesigns.com <br />
+              Help Center:{" "}
               <a
-                href="/support"
-                className="text-blue-500 no-underline hover:underline"
+                href="/kb"
+                className="text-blue-600 no-underline hover:underline"
               >
-                /support
+                /kb
               </a>
             </p>
           </section>

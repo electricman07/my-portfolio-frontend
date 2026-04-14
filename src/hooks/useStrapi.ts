@@ -133,7 +133,7 @@ export function useTechStack() {
 export function useBlogPosts(filters: any) {
   const query: any = {
     populate: ["coverImage", "author", "tags"],
-    pagination: { page: filters.page || 1, pageSize: 6 },
+    pagination: { page: filters.page || 1, pageSize: 4 },
     sort: filters.sort === "oldest" ? "createdAt:asc" : "createdAt:desc",
     filters: {},
   };

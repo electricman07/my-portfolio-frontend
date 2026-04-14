@@ -11,19 +11,22 @@ export const Route = createFileRoute("/blog/$blogId")({
   // 3. Inject SEO Tags
   head: (ctx) => {
     const post = ctx.loaderData?.data;
-    if (!post) return { meta: [{ title: "Glen Studio | Insights" }] };
+    if (!post) return { meta: [{ title: "Blog | GP Digital Designs" }] };
 
     return {
       meta: [
-        { title: `${post.title} | Glen Studio` },
+        // Updated Site Name
+        { title: `${post.title} | GP Digital Designs` },
         {
           name: "description",
           content:
             post.excerpt ||
-            post.content?.[0]?.children?.[0]?.text?.substring(0, 160),
+            // Fallback: Strip HTML tags from content string and take first 160 chars
+            post.content?.replace(/<[^>]*>/g, "").substring(0, 160),
         },
         // Social Media Tags
         { property: "og:title", content: post.title },
+        { property: "og:site_name", content: "GP Digital Designs" },
         { property: "og:type", content: "article" },
         { property: "og:image", content: post.coverImage?.url },
         { name: "twitter:card", content: "summary_large_image" },
@@ -63,7 +66,6 @@ function BlogDetailPage() {
   const safeTags = Array.isArray(post.tags) ? post.tags : [];
 
   return (
-    // 1. Changed <article> to <div> here
     <div className="max-w-7xl mx-auto py-12 px-6 animate-in fade-in duration-700">
       {/* Back Button */}
       <Link
@@ -74,7 +76,7 @@ function BlogDetailPage() {
         <ChevronLeft size={20} /> Back to Insights
       </Link>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-        {/* LEFT: MAIN ARTICLE (Span 8) */}
+        {/* LEFT: MAIN ARTICLE */}
         <article className="lg:col-span-8">
           {/* Hero Header */}
           <header className="space-y-6 mb-12 text-left">
@@ -136,12 +138,11 @@ function BlogDetailPage() {
           <RelatedProjects projects={post.related_projects} />
         </article>
 
-        {/* 3. RIGHT: SIDEBAR (Span 4) */}
+        {/* RIGHT: SIDEBAR */}
         <aside className="lg:col-span-4 space-y-10 sticky top-24 self-start">
           <BlogSidebar />
         </aside>
       </div>{" "}
-      {/* Closes the grid div */}
-    </div> /* Closes the container div */
+    </div>
   );
 }

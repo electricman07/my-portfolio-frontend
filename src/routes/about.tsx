@@ -3,7 +3,6 @@ import { useAboutData } from "../hooks/useAbout";
 import { FaGraduationCap, FaBriefcase } from "react-icons/fa6";
 import { Loader2, AlertCircle } from "lucide-react";
 import * as LucideIcons from "lucide-react";
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { fetchAboutData } from "../hooks/useStrapi";
 
 export const Route = createFileRoute("/about")({
@@ -14,14 +13,17 @@ export const Route = createFileRoute("/about")({
 
     return {
       meta: [
-        { title: "About Glen | Full-Stack Developer & Designer" },
+        { title: "About GP Digital Designs | Full-Stack Developer & Designer" },
         {
           name: "description",
           content:
             "Learn more about my journey, technical expertise in React and Node.js, and my approach to building premium digital products.",
         },
         // Open Graph for social sharing
-        { property: "og:title", content: "Meet the Developer | Glen Studio" },
+        {
+          property: "og:title",
+          content: "Meet the Developer | GP Digital Designs",
+        },
         { property: "og:image", content: about?.profileImage?.url },
         { name: "twitter:card", content: "summary" },
       ],
@@ -74,20 +76,49 @@ function AboutPage() {
           <h1 className="text-5xl md:text-6xl font-black tracking-tighter">
             About Me
           </h1>
-          <div className="prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-400 leading-relaxed max-w-none">
-            {about?.content ? (
-              <BlocksRenderer content={about.content} />
-            ) : (
-              <p>No content available.</p>
-            )}
-          </div>
+          <div
+            className="prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-400 leading-relaxed max-w-none"
+            dangerouslySetInnerHTML={{ __html: about.content }}
+          ></div>
         </div>
       </section>
 
       {/* 2. SECONDARY TEXT SECTION: Now full width below the image/intro */}
       {about.secondaryDescription && (
-        <section className="max-w-4xl mx-auto prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-400">
-          <BlocksRenderer content={about.secondaryDescription} />
+        <section
+          className="max-w-4xl mx-auto prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-400"
+          dangerouslySetInnerHTML={{ __html: about.secondaryDescription }}
+        ></section>
+      )}
+
+      {/* 2.5 SKILLS SECTION: High-Contrast Skill Cloud */}
+      {about.skills && (
+        <section className="max-w-6xl mx-auto space-y-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="space-y-2">
+              <h4 className="text-blue-600 font-black uppercase tracking-widest text-xs">
+                Expertise
+              </h4>
+              <h2 className="text-4xl font-black tracking-tighter text-slate-900 dark:text-white">
+                Technical Skills
+              </h2>
+            </div>
+            <p className="text-slate-500 font-medium max-w-sm">
+              A comprehensive list of technologies and tools I utilize to build
+              modern digital experiences.
+            </p>
+          </div>
+
+          <div
+            className="prose prose-lg max-w-none 
+        /* Styling the raw HTML output */
+        text-slate-900 dark:text-slate-300 
+        prose-headings:text-slate-900 dark:prose-headings:text-white
+        prose-blue dark:prose-invert
+        /* Targeting lists specifically if you used them in CKEditor */
+        prose-ul:list-disc prose-li:marker:text-blue-500"
+            dangerouslySetInnerHTML={{ __html: about.skills }}
+          />
         </section>
       )}
 

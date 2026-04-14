@@ -8,6 +8,24 @@ export const Route = createFileRoute("/service/$serviceId")({
     if (!service) throw new Error("Service not found");
     return { service };
   },
+  head: (ctx) => {
+    const service = ctx.loaderData?.service;
+    return {
+      meta: [
+        {
+          title: service
+            ? `${service.title} | GP Digital Designs`
+            : "Service | GP Digital Designs",
+        },
+        {
+          name: "description",
+          content:
+            service?.description ||
+            "Expert digital services provided by GP Digital Designs.",
+        },
+      ],
+    };
+  },
   component: ServiceDetailPage,
   pendingComponent: () => <Loader2 className="animate-spin" />,
 });

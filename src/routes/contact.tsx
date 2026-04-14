@@ -3,6 +3,16 @@ import { ContactForm } from "../components/contacts/ContactForm";
 import { ContactInfo } from "../components/contacts/ContactInfo";
 
 export const Route = createFileRoute("/contact")({
+  head: () => ({
+    meta: [
+      { title: "Contact | GP Digital Designs" },
+      {
+        name: "description",
+        content:
+          "Get in touch with GP Digital Designs for expert web design and development services.",
+      },
+    ],
+  }),
   component: ContactComponent,
 });
 

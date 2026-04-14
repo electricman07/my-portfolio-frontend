@@ -11,12 +11,14 @@ import { ClientOnly } from "#/components/ui/ClientOnly";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "Frequently Asked Questions | Glen Studio" },
+      // Updated Branding
+      { title: "Frequently Asked Questions | GP Digital Designs" },
       {
         name: "description",
         content:
-          "Everything you need to know about my web development process and custom solutions.",
+          "Everything you need to know about the web development process and custom digital solutions by GP Digital Designs.",
       },
+      { property: "og:site_name", content: "GP Digital Designs" },
     ],
   }),
   component: FAQPage,
@@ -60,14 +62,15 @@ function FAQContent() {
     <div className="max-w-4xl mx-auto py-20 px-6 space-y-16 animate-in fade-in duration-700">
       <header className="text-center space-y-6">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-black uppercase tracking-widest mx-auto">
-          <HelpCircle size={14} /> Support
+          <HelpCircle size={14} /> Support Center
         </div>
-        <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight">
+        {/* FONT COLOR FIX: text-slate-950 */}
+        <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight text-slate-950 dark:text-white">
           Common Questions.
         </h1>
-        <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto">
-          Everything you need to know about my process, timeline, and how we can
-          build something great together.
+        <p className="text-xl text-slate-900 dark:text-slate-400 font-medium max-w-2xl mx-auto">
+          Everything you need to know about my process and how we can build
+          something great together.
         </p>
       </header>
 
@@ -79,13 +82,14 @@ function FAQContent() {
                 key={faq.id}
                 question={faq.question}
                 answer={
-                  Array.isArray(faq.answer) ? (
-                    <div className="prose prose-slate dark:prose-invert">
+                  <div className="prose prose-blue dark:prose-invert max-w-none text-slate-800 dark:text-slate-300">
+                    {Array.isArray(faq.answer) ? (
                       <BlocksRenderer content={faq.answer} />
-                    </div>
-                  ) : (
-                    faq.answer
-                  )
+                    ) : (
+                      // Handle CKEditor HTML string
+                      <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
+                    )}
+                  </div>
                 }
                 isOpen={openId === faq.documentId}
                 onClick={() =>
@@ -94,21 +98,20 @@ function FAQContent() {
               />
             ))}
 
-            {/* 4. THE SENSOR ELEMENT */}
             <div
               ref={ref}
-              className="py-12 flex flex-col items-center justify-center min-h-25"
+              className="py-12 flex flex-col items-center justify-center"
             >
               {isFetchingNextPage ? (
                 <div className="flex flex-col items-center gap-2">
-                  <Loader2 className="animate-spin text-blue-500" />
+                  <Loader2 className="animate-spin text-blue-600" />
                   <span className="text-[10px] font-black uppercase text-slate-400">
-                    Loading more...
+                    Loading...
                   </span>
                 </div>
               ) : hasNextPage ? (
-                <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest opacity-40">
-                  Scroll for more
+                <span className="text-[10px] font-black uppercase text-blue-500 animate-pulse">
+                  ↓ Scroll for more
                 </span>
               ) : (
                 <div className="h-px bg-slate-200 dark:bg-slate-800 w-24 opacity-50" />
@@ -116,7 +119,7 @@ function FAQContent() {
             </div>
           </>
         ) : (
-          <div className="text-center py-20 bg-slate-50 dark:bg-slate-900 rounded-[3rem] border-2 border-slate-200 dark:border-slate-800">
+          <div className="text-center py-20 bg-slate-50 dark:bg-slate-950 rounded-[3rem] border-2 border-slate-200 dark:border-slate-800">
             <p className="text-slate-400 font-black uppercase tracking-widest text-xs italic">
               No questions found.
             </p>
@@ -125,11 +128,11 @@ function FAQContent() {
       </div>
 
       <footer className="text-center pt-10 border-t border-slate-100 dark:border-slate-800">
-        <p className="text-slate-500 font-medium">
+        <p className="text-slate-900 dark:text-slate-400 font-medium">
           Still have questions?{" "}
           <Link
             to="/contact"
-            className="text-blue-600 font-bold hover:underline"
+            className="text-blue-600 font-black hover:underline transition-all"
           >
             Contact me directly.
           </Link>

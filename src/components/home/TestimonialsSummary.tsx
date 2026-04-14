@@ -53,9 +53,22 @@ export function TestimonialsSummary() {
               </div>
 
               {/* 2. THE QUOTE: Using a serif font for a "Premium Editorial" look */}
-              <p className="italic text-lg text-slate-700 dark:text-slate-300 font-serif leading-relaxed mb-8 grow">
-                "{t.content}"
-              </p>
+              <div className="relative grow mb-8 pt-4">
+                {/* Large Opening Quote Asset */}
+                <span className="absolute -top-4 -left-2 text-6xl text-blue-500/10 font-serif leading-none select-none">
+                  “
+                </span>
+
+                <div
+                  className="relative z-10 text-lg font-serif italic leading-relaxed text-slate-900 dark:text-slate-200 prose-slate dark:prose-invert max-w-none"
+                  dangerouslySetInnerHTML={{ __html: t.content }}
+                />
+
+                {/* Large Closing Quote Asset */}
+                <span className="absolute -bottom-6 right-0 text-6xl text-blue-500/10 font-serif leading-none select-none">
+                  ”
+                </span>
+              </div>
 
               {/* 3. CLIENT INFO */}
               <div className="flex items-center gap-4 pt-6 border-t-2 border-slate-50 dark:border-slate-800">
