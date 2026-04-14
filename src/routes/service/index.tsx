@@ -5,20 +5,39 @@ import { useServices } from "../../hooks/useStrapi";
 import { getIcon } from "../../lib/icons";
 
 export const Route = createFileRoute("/service/")({
-  head: () => ({
-    meta: [
-      { title: "Specialized Digital Services | Glen Studio" },
-      {
-        name: "description",
-        content:
-          "From high-performance Web Development to intuitive UI/UX Design, I provide end-to-end digital solutions built with React, Strapi, and PostgreSQL.",
-      },
-      {
-        property: "og:title",
-        content: "Digital Services & Capabilities | Glen Studio",
-      },
-    ],
-  }),
+  head: () => {
+    const base = "Glen Studio";
+    const title = `Expert Digital Services | ${base}`;
+    const description =
+      "High-performance Web Development, UI/UX Design, and end-to-end digital solutions built with React, Strapi, and PostgreSQL.";
+
+    return {
+      meta: [
+        { title },
+        {
+          name: "description",
+          content: description,
+        },
+        // OpenGraph / Social Media Tags
+        {
+          property: "og:title",
+          content: title,
+        },
+        {
+          property: "og:description",
+          content: description,
+        },
+        {
+          property: "og:type",
+          content: "website",
+        },
+        {
+          name: "twitter:card",
+          content: "summary_large_image",
+        },
+      ],
+    };
+  },
   component: ServiceComponent,
 });
 

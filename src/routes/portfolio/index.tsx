@@ -16,6 +16,28 @@ export const Route = createFileRoute("/portfolio/")({
       search: (search.search as string) || "",
     };
   },
+  loaderDeps: ({ search: { search, page } }) => ({ search, page }),
+  loader: ({ deps }) => ({ deps }),
+  head: (ctx) => {
+    const search = ctx.loaderData?.deps?.search;
+    const base = "GP Digital Designs";
+
+    // Dynamic Title Logic
+    const title = search
+      ? `Search: "${search}" | Portfolio | ${base}`
+      : `Portfolio | Featured Works | ${base}`;
+
+    return {
+      meta: [
+        { title },
+        {
+          name: "description",
+          content:
+            "Explore a curated collection of web development and design projects by GP Digital Designs.",
+        },
+      ],
+    };
+  },
   component: PortfolioPage,
 });
 

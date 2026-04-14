@@ -24,27 +24,33 @@ export const Route = createFileRoute("/blog/")({
       sort: (search.sort as "newest" | "oldest") || "newest",
     };
   },
+  loaderDeps: ({ search: { page, search, tag } }) => ({
+    page,
+    search,
+    tag,
+  }),
+  loader: ({ deps }) => {
+    return { searchParams: deps };
+  },
   head: (ctx) => {
-    const params = new URLSearchParams(ctx.location.search);
+    if (!ctx.loaderData?.searchParams) {
+      return { meta: [{ title: "GP Digital Designs" }] };
+    }
 
-    const page = Number(params.get("page") || 1);
-    const query = params.get("search") || "";
-    const tag = params.get("tag") || undefined;
-
+    const { search, tag, page } = ctx.loaderData.searchParams;
     const base = "GP Digital Designs";
     let title = `Insights | ${base}`;
 
-    if (query) title = `Search: ${query} | ${base}`;
+    if (search) title = `Search: ${search} | ${base}`;
     else if (tag) title = `#${tag} Articles | ${base}`;
-    else if (page > 1) title = `Insights - Page ${page} | ${base}`;
+    else if (page && page > 1) title = `Insights - Page ${page} | ${base}`;
 
     return {
       meta: [
         { title },
         {
           name: "description",
-          content:
-            "Expert articles on web development, design trends, and technical strategy by GP Digital Designs.",
+          content: "Expert articles on web development and design strategy.",
         },
       ],
     };
