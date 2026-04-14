@@ -1,12 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query"; // Fixed duplicate imports
+import { useInfiniteQuery } from "@tanstack/react-query"; // Fixed duplicate imports
 import { fetchKB, fetchKBInfinite } from "../hooks/useStrapi"; // Ensure fetchKBInfinite is in useStrapi.ts
 import { AccordionItem } from "../components/faq/AccordionItem";
 import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { LifeBuoy, Loader2, MessageCircle, ArrowRight } from "lucide-react";
-import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { ClientOnly } from "#/components/ui/ClientOnly";
+import { useKBCategories } from "../hooks/useKBCategories";
 
 export const Route = createFileRoute("/kb")({
   loader: () => fetchKB(),
@@ -15,18 +15,6 @@ export const Route = createFileRoute("/kb")({
   }),
   component: KnowledgeBasePage,
 });
-
-export function useKBCategories() {
-  const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1338";
-  return useQuery({
-    queryKey: ["kb-categories"],
-    queryFn: async () => {
-      const res = await fetch(`${STRAPI_URL}/api/categories`);
-      if (!res.ok) throw new Error("Failed to fetch categories");
-      return res.json();
-    },
-  });
-}
 
 function KBContent() {
   const [activeTab, setActiveTab] = useState("All");
@@ -130,29 +118,55 @@ function KBContent() {
                     <div className="h-px bg-slate-200 dark:bg-slate-800 grow" />
                   </div>
                   <div className="grid gap-4">
-                    {items.map((guide: any) => (
-                      <AccordionItem
-                        key={guide.id}
-                        question={guide.title}
-                        answer={
-                          guide.fix ? (
-                            <div className="prose prose-slate dark:prose-invert max-w-none">
-                              <BlocksRenderer content={guide.fix} />
+                    {items.map((guide: any) => {
+                      return (
+                        <AccordionItem
+                          key={guide.id}
+                          question={guide.title}
+                          answer={
+                            <div className="space-y-6">
+                              {/* SYMPTOM SECTION */}
+                              {guide.symptom && (
+                                <div className="space-y-2">
+                                  <h4 className="text-[10px] font-black uppercase tracking-widest text-red-500">
+                                    The Symptom
+                                  </h4>
+                                  <div
+                                    className="prose prose-sm dark:prose-invert text-slate-800 dark:text-slate-300"
+                                    dangerouslySetInnerHTML={{
+                                      __html: guide.symptom,
+                                    }}
+                                  />
+                                </div>
+                              )}
+
+                              {/* THE FIX SECTION */}
+                              {guide.theFix && (
+                                <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800">
+                                  <h4 className="text-[10px] font-black uppercase tracking-widest text-green-600">
+                                    The Fix
+                                  </h4>
+                                  <div
+                                    className="prose prose-sm dark:prose-invert text-slate-900 dark:text-slate-200"
+                                    dangerouslySetInnerHTML={{
+                                      __html: guide.theFix,
+                                    }}
+                                  />
+                                </div>
+                              )}
                             </div>
-                          ) : (
-                            "No solution yet."
-                          )
-                        }
-                        isOpen={openId === guide.documentId}
-                        onClick={() =>
-                          setOpenId(
-                            openId === guide.documentId
-                              ? null
-                              : guide.documentId,
-                          )
-                        }
-                      />
-                    ))}
+                          }
+                          isOpen={openId === guide.documentId}
+                          onClick={() =>
+                            setOpenId(
+                              openId === guide.documentId
+                                ? null
+                                : guide.documentId,
+                            )
+                          }
+                        />
+                      );
+                    })}
                   </div>
                 </section>
               ),
@@ -170,7 +184,7 @@ function KBContent() {
                   ↓ Scroll for more fixes
                 </span>
               ) : (
-                <span className="text-[10px] font-black uppercase text-slate-300">
+                <span className="text-[10px] font-black uppercase text-slate-500">
                   All documentation loaded
                 </span>
               )}
