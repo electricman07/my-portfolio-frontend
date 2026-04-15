@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { useGlobalSettings } from "../../hooks/useGlobalSettings";
 import { Link } from "@tanstack/react-router";
+
 import { FaBars, FaX } from "react-icons/fa6";
 import { ThemeToggle } from "../layout/ThemeToggle";
 import { SOCIALS } from "../../lib/socials";
@@ -11,6 +13,10 @@ import { ClientOnly } from "../ui/ClientOnly";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const STRAPI_URL =
+    import.meta.env.VITE_STRAPI_URL?.replace(/\/$/, "") ||
+    "http://localhost:1338";
+  const { siteName, isLoading, avatarUrl } = useGlobalSettings();
 
   useEffect(() => {
     if (open) {
@@ -27,6 +33,10 @@ export function Navbar() {
     };
   }, [open]);
 
+  const fullAvatarUrl = avatarUrl.startsWith("http")
+    ? avatarUrl
+    : `${STRAPI_URL}/${avatarUrl.replace(/^\//, "")}`;
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 w-full border-b-2 border-slate-300 dark:border-slate-800 bg-slate-200/90 dark:bg-slate-950/90 backdrop-blur-md transition-colors duration-500 shadow-[0_4px_20px_-5px_rgba(15,23,42,0.1)]">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -37,13 +47,14 @@ export function Navbar() {
         >
           <div className="w-9 h-9 rounded-xl overflow-hidden border-2 border-slate-300 dark:border-slate-800 shadow-sm group-hover:border-blue-500 transition-all">
             <img
-              src="/Avatar50.png"
-              alt="Glen"
+              src={fullAvatarUrl}
+              alt={`${siteName} logo`}
               className="w-full h-full object-cover"
             />
           </div>
           <span className="text-xl font-black tracking-tighter uppercase text-slate-900 dark:text-white">
-            GP Digital Design<span className="text-blue-500">.</span>
+            {isLoading ? "Loading..." : siteName}
+            <span className="text-blue-500">.</span>
           </span>
         </Link>
 

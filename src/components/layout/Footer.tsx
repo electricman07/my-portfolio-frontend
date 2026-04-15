@@ -1,5 +1,6 @@
+import { useGlobalSettings } from "../../hooks/useGlobalSettings";
 import { Link } from "@tanstack/react-router";
-import { ChevronUp } from "lucide-react";
+import { ChevronUp, Loader2 } from "lucide-react";
 import {
   NAV_LINKS_PRIMARY,
   NAV_LINKS_SECONDARY,
@@ -10,6 +11,8 @@ import {
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const { footerCopyright, isLoading } = useGlobalSettings();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -17,11 +20,16 @@ export function Footer() {
   return (
     <footer className="mt-auto border-t-2 border-slate-300 dark:border-slate-800 bg-slate-800 dark:bg-slate-950 transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-8 py-16">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-12">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           {/* 1. BRANDING & COPYRIGHT */}
-          <div className="space-y-4 text-center md:text-left">
+          <div className="space-y-2 text-center md:text-left">
             <h3 className="text-xl font-black tracking-tighter uppercase text-white">
-              GP Digital Design<span className="text-blue-400">.</span>
+              {isLoading ? (
+                <Loader2 className="animate-spin text-blue-400" size={16} />
+              ) : (
+                footerCopyright
+              )}
+              <span className="text-blue-500">.</span>
             </h3>
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
               © {currentYear} All Rights Reserved.
