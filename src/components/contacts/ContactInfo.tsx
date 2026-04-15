@@ -20,7 +20,7 @@ export function ContactInfo() {
             <span className="text-[10px] font-black uppercase text-slate-400">
               Email Me
             </span>
-            <span className="text-lg font-black tracking-tighter text-slate-900 dark:text-white">
+            <span className="text-xs md:text-lg font-black tracking-tighter text-slate-900 dark:text-white">
               gmpopowich@gmail.com
             </span>
           </div>

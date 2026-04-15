@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRelatedProjects, fetchProject } from "../../hooks/useStrapi";
 import { getTechIcon } from "../../lib/iconMapper";
-import { Loader2, ChevronLeft } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
+import { Loader2, ChevronLeft, ExternalLink, ArrowRight } from "lucide-react";
 import { RelatedProjects } from "../../components/blog/RelatedProjects";
 
 export const Route = createFileRoute("/portfolio/$projectId")({
@@ -95,7 +96,6 @@ function portfolioDetailsComponent() {
           <h4 className="text-blue-600 font-black uppercase tracking-[0.2em] text-xs mb-2">
             Case Study
           </h4>
-          {/* HIGH CONTRAST TITLE */}
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-slate-950 dark:text-white">
             {project.title}
           </h1>
@@ -104,7 +104,6 @@ function portfolioDetailsComponent() {
 
       <div className="grid lg:grid-cols-12 gap-16">
         <div className="lg:col-span-8 space-y-12">
-          {/* CKEDITOR CONTENT RENDERER */}
           <div
             className="prose prose-xl dark:prose-invert max-w-none font-medium text-slate-900 dark:text-slate-200 leading-relaxed"
             dangerouslySetInnerHTML={{ __html: project.description }}
@@ -143,7 +142,30 @@ function portfolioDetailsComponent() {
               Project Links
             </h4>
             <div className="flex flex-col gap-4">
-              {/* Keep your Blue themed buttons here */}
+              {project.liveUrl && (
+                <a 
+                  href={project.liveUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center justify-center gap-3 w-full py-4 bg-blue-600 text-white rounded-2xl font-black shadow-lg hover:bg-blue-700 hover:-translate-y-1 transition-all"
+                >
+                  Launch Demo <ExternalLink size={20} />
+                </a>
+              )}
+
+              {/* GitHub Link - Fixed and Styled */}
+              {project.githubUrl && (
+                <a 
+                  href={project.githubUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center justify-center gap-3 w-full py-4 bg-slate-900 dark:bg-slate-800 text-white rounded-2xl font-black shadow-lg hover:bg-black dark:hover:bg-slate-700 hover:-translate-y-1 transition-all"
+                >
+                  Source Code <FaGithub size={20} />
+                </a>
+              )}
+
+
             </div>
           </div>
         </aside>

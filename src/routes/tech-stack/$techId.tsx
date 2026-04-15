@@ -98,7 +98,7 @@ function TechDetailComponent() {
               <h3 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400">
                 Current Proficiency
               </h3>
-              <p className="text-3xl font-black tracking-tighter text-slate-900 dark:text-slate-100">
+              <p className="text-xl md:text-3xl font-black tracking-tighter text-slate-900 dark:text-slate-100">
                 {proficiency < 50
                   ? "Intermediate"
                   : proficiency < 85
@@ -107,7 +107,7 @@ function TechDetailComponent() {
               </p>
             </div>
             <span
-              className="text-5xl font-black tabular-nums tracking-tighter"
+              className="text-xl md:text-5xl font-black tabular-nums tracking-tighter"
               style={{ color: brandColor }}
             >
               {proficiency}%

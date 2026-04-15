@@ -11,7 +11,7 @@ interface ServiceCardProps {
 }
 
 const premiumCardClasses = `
-    p-10 flex flex-col gap-6
+    p-10 flex flex-col gap-6 justify-center items-center
     bg-[#F8FAFC] dark:bg-slate-900 
     border-2 border-slate-300 dark:border-slate-600 
     rounded-[3rem] shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2
