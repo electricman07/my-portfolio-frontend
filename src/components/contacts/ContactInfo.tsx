@@ -42,7 +42,6 @@ export function ContactInfo() {
               rel="noopener noreferrer"
               className="aspect-square bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 hover:border-blue-500 hover:bg-white dark:hover:bg-slate-800 group shadow-sm"
             >
-              {/* Using the consistent Blue-500 to match your Email icon above */}
               <span className="text-blue-500 transition-transform duration-300 group-hover:scale-110">
                 <Icon size={22} />
               </span>
