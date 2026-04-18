@@ -118,7 +118,7 @@ function SearchResultsPage() {
                 {services.map((service: any) => (
                   <ServiceCard
                     key={service.id}
-                    serviceId={service.slug} // Fixed to match establish logic
+                    serviceId={service.slug}
                     title={service.title}
                     description={service.description}
                     icon={getServiceIcon(service.iconName)}

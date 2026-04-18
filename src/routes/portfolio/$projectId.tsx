@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRelatedProjects, fetchProject } from "../../hooks/useStrapi";
 import { getTechIcon } from "../../lib/iconMapper";
 import { FaGithub } from "react-icons/fa";
-import { Loader2, ChevronLeft, ExternalLink, ArrowRight } from "lucide-react";
+import { Loader2, ChevronLeft, ExternalLink } from "lucide-react";
 import { RelatedProjects } from "../../components/blog/RelatedProjects";
 
 export const Route = createFileRoute("/portfolio/$projectId")({
@@ -11,14 +11,14 @@ export const Route = createFileRoute("/portfolio/$projectId")({
     const project = ctx.loaderData?.data;
     if (!project) {
       return {
-        meta: [{ title: "Project | GP Digital Designs" }],
+        meta: [{ title: "Project | GP Digital Web Studio" }],
       };
     }
 
     return {
       meta: [
         // Updated Branding
-        { title: `${project.title} | GP Digital Designs` },
+        { title: `${project.title} | GP Digital Web Studio` },
         {
           name: "description",
           content:
@@ -143,10 +143,10 @@ function portfolioDetailsComponent() {
             </h4>
             <div className="flex flex-col gap-4">
               {project.liveUrl && (
-                <a 
-                  href={project.liveUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 w-full py-4 bg-blue-600 text-white rounded-2xl font-black shadow-lg hover:bg-blue-700 hover:-translate-y-1 transition-all"
                 >
                   Launch Demo <ExternalLink size={20} />
@@ -155,17 +155,15 @@ function portfolioDetailsComponent() {
 
               {/* GitHub Link - Fixed and Styled */}
               {project.githubUrl && (
-                <a 
-                  href={project.githubUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 w-full py-4 bg-slate-900 dark:bg-slate-800 text-white rounded-2xl font-black shadow-lg hover:bg-black dark:hover:bg-slate-700 hover:-translate-y-1 transition-all"
                 >
                   Source Code <FaGithub size={20} />
                 </a>
               )}
-
-
             </div>
           </div>
         </aside>

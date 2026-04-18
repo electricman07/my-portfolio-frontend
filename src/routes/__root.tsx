@@ -18,11 +18,11 @@ export const Route = createRootRouteWithContext<any>()({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "GP Digital Designs | Premium Web Development" },
+      { title: "GP Digital Web Stduio | Premium Web Development" },
       {
         name: "description",
         content:
-          "Expert Full-Stack Web Development & UI/UX Design by GP Digital Designs.",
+          "Expert Full-Stack Web Development & UI/UX Design by GP Digital Web Studio.",
       },
     ],
     links: [

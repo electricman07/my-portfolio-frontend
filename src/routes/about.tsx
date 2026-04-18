@@ -13,7 +13,10 @@ export const Route = createFileRoute("/about")({
 
     return {
       meta: [
-        { title: "About GP Digital Designs | Full-Stack Developer & Designer" },
+        {
+          title:
+            "About GP Digital Web Studio | Full-Stack Developer & Designer",
+        },
         {
           name: "description",
           content:
@@ -22,7 +25,7 @@ export const Route = createFileRoute("/about")({
         // Open Graph for social sharing
         {
           property: "og:title",
-          content: "Meet the Developer | GP Digital Designs",
+          content: "Meet the Developer | GP Digital Web Studio",
         },
         { property: "og:image", content: about?.profileImage?.url },
         { name: "twitter:card", content: "summary" },
@@ -61,7 +64,7 @@ function AboutPage() {
 
   return (
     <div className="max-w-7xl mx-auto space-y-24 py-12 px-6 animate-in fade-in duration-700">
-      {/* 1. TOP SECTION: Image & Main Intro (2 Columns) */}
+      {/* TOP SECTION: Image & Main Intro */}
       <section className="grid md:grid-cols-2 gap-12 items-center">
         <div className="relative aspect-square rounded-[3rem] overflow-hidden border-2 border-slate-300 dark:border-slate-800 shadow-2xl bg-slate-100 dark:bg-slate-900">
           {about.profileImage && (
@@ -83,7 +86,7 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* 2. SECONDARY TEXT SECTION: Now full width below the image/intro */}
+      {/* SECONDARY TEXT SECTION */}
       {about.secondaryDescription && (
         <section
           className="max-w-4xl mx-auto prose prose-lg dark:prose-invert text-slate-600 dark:text-slate-400"
@@ -91,7 +94,7 @@ function AboutPage() {
         ></section>
       )}
 
-      {/* 2.5 SKILLS SECTION: High-Contrast Skill Cloud */}
+      {/* SKILLS SECTION */}
       {about.skills && (
         <section className="max-w-6xl mx-auto space-y-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -122,7 +125,7 @@ function AboutPage() {
         </section>
       )}
 
-      {/* 3. EDUCATION & EXPERIENCE: Mapping the data */}
+      {/* EDUCATION & EXPERIENCE */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Education Box */}
         <div className="p-10 bg-[#F8FAFC] dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 rounded-[3rem] shadow-sm">
@@ -200,7 +203,6 @@ function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      {/* 4. Stats Section: Premium Card Style */}
       <section className="bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[3rem] p-10 md:p-16 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] transition-all hover:shadow-2xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
           {/* Years Experience */}
@@ -264,16 +266,8 @@ function AboutPage() {
             return (
               <div
                 key={v.id || i}
-                className="p-10 flex flex-col items-start text-left transition-all duration-500 group
-                     /* 1. PREMIUM CARD STYLING */
-                     bg-white dark:bg-slate-950 
-                     border-2 border-slate-300 dark:border-slate-800 
-                     rounded-[3rem] 
-                     shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)]
-                     /* 2. INTERACTION */
-                     hover:-translate-y-3 hover:shadow-2xl hover:border-blue-500"
+                className="p-10 flex flex-col items-start text-left transition-all duration-500 group bg-white dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 rounded-[3rem] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] hover:-translate-y-3 hover:shadow-2xl hover:border-blue-500"
               >
-                {/* Icon Container with subtle background tint */}
                 <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center mb-8 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors duration-500">
                   <IconComponent
                     className="text-slate-600 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-500"

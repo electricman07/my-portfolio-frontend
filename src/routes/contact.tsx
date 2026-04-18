@@ -5,11 +5,11 @@ import { ContactInfo } from "../components/contacts/ContactInfo";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact | GP Digital Designs" },
+      { title: "Contact | GP Digital Web Studio" },
       {
         name: "description",
         content:
-          "Get in touch with GP Digital Designs for expert web design and development services.",
+          "Get in touch with GP Digital Web Studio for expert web design and development services.",
       },
     ],
   }),

@@ -12,11 +12,11 @@ export const Route = createFileRoute("/kb")({
   loader: () => fetchKB(),
   head: () => ({
     meta: [
-      { title: "Knowledge Base | GP Digital Designs" },
+      { title: "Knowledge Base | GP Digital Web Studio" },
       {
         name: "description",
         content:
-          "Technical guides, troubleshooting, and documentation for web projects by GP Digital Designs.",
+          "Technical guides, troubleshooting, and documentation for web projects by GP Digital Web Studio.",
       },
     ],
   }),
@@ -52,7 +52,6 @@ function KBContent() {
   ];
 
   const groupedGuides = allGuides.reduce((acc: any, guide: any) => {
-    // Handle Strapi v5 categories (checking for array or document structure)
     const itemCats =
       guide.categories && guide.categories.length > 0
         ? guide.categories.map((c: any) => c.name)
@@ -74,15 +73,12 @@ function KBContent() {
     return acc;
   }, {});
 
-  // Grouping logic ... (Accredited to your previous code)
-
   return (
     <div className="max-w-5xl mx-auto py-12 px-6 space-y-16 animate-in fade-in duration-700">
       <header className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest mx-auto border border-blue-100 dark:border-blue-800">
           <LifeBuoy size={14} /> Support Center
         </div>
-        {/* FONT COLOR FIX: text-slate-950 */}
         <h1 className="text-5xl md:text-6xl font-black tracking-tighter text-slate-950 dark:text-white">
           Knowledge Base
         </h1>
@@ -91,7 +87,6 @@ function KBContent() {
         </p>
       </header>
 
-      {/* Category Tabs - Blue Theme */}
       <div className="flex flex-wrap justify-center gap-2">
         {dynamicCategories.map((cat) => (
           <button
@@ -135,7 +130,6 @@ function KBContent() {
                         question={guide.title}
                         answer={
                           <div className="space-y-6">
-                            {/* SYMPTOM SECTION - FONT COLOR FIX: text-slate-900 */}
                             {guide.symptom && (
                               <div className="space-y-2">
                                 <h4 className="text-[10px] font-black uppercase tracking-widest text-red-500">
@@ -150,7 +144,6 @@ function KBContent() {
                               </div>
                             )}
 
-                            {/* THE FIX SECTION - FONT COLOR FIX: text-slate-900 */}
                             {guide.theFix && (
                               <div className="space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800">
                                 <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-600">
@@ -181,7 +174,6 @@ function KBContent() {
               ),
             )}
 
-            {/* Pagination Sensor */}
             <div
               ref={ref}
               className="h-24 w-full flex items-center justify-center"

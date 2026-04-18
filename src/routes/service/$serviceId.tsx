@@ -14,14 +14,14 @@ export const Route = createFileRoute("/service/$serviceId")({
       meta: [
         {
           title: service
-            ? `${service.title} | GP Digital Designs`
+            ? `${service.title} | GP Digital Web Studio`
             : "Service | GP Digital Designs",
         },
         {
           name: "description",
           content:
             service?.description ||
-            "Expert digital services provided by GP Digital Designs.",
+            "Expert digital services provided by GP Digital Web Studio.",
         },
       ],
     };

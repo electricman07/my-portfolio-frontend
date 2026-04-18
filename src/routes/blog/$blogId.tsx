@@ -11,12 +11,12 @@ export const Route = createFileRoute("/blog/$blogId")({
   // 3. Inject SEO Tags
   head: (ctx) => {
     const post = ctx.loaderData?.data;
-    if (!post) return { meta: [{ title: "Blog | GP Digital Designs" }] };
+    if (!post) return { meta: [{ title: "Blog | GP Digital Web Studio" }] };
 
     return {
       meta: [
         // Updated Site Name
-        { title: `${post.title} | GP Digital Designs` },
+        { title: `${post.title} | GP Digital Web Studio` },
         {
           name: "description",
           content:

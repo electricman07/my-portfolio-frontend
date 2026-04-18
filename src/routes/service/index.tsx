@@ -6,7 +6,7 @@ import { getIcon } from "../../lib/icons";
 
 export const Route = createFileRoute("/service/")({
   head: () => {
-    const base = "Glen Studio";
+    const base = "GP Digital Web Studio";
     const title = `Expert Digital Services | ${base}`;
     const description =
       "High-performance Web Development, UI/UX Design, and end-to-end digital solutions built with React, Strapi, and PostgreSQL.";

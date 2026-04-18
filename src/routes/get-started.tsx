@@ -10,11 +10,11 @@ import {
 export const Route = createFileRoute("/get-started")({
   head: () => ({
     meta: [
-      { title: "Get Started | GP Digital Designs" },
+      { title: "Get Started | GP Digital Web Studio" },
       {
         name: "description",
         content:
-          "Ready to launch your next digital project? Choose a path to connect with GP Digital Designs today.",
+          "Ready to launch your next digital project? Choose a path to connect with GP Digital Web Studio today.",
       },
     ],
   }),
@@ -24,12 +24,11 @@ export const Route = createFileRoute("/get-started")({
 function GetStartedPage() {
   return (
     <div className="max-w-5xl mx-auto py-20 px-6 space-y-16 animate-in fade-in slide-in-from-bottom-10 duration-1000">
-      {/* 1. HERO HEADER */}
+      {/* HERO HEADER */}
       <header className="text-center space-y-6">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-100 dark:border-blue-800 text-blue-600 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest mx-auto">
           <Rocket size={14} /> Let's Launch Your Project
         </div>
-        {/* FONT COLOR FIX: text-slate-950 */}
         <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-tight text-slate-950 dark:text-white">
           Ready to build <br /> something great?
         </h1>
@@ -39,9 +38,7 @@ function GetStartedPage() {
         </p>
       </header>
 
-      {/* 2. CHOICE GRID */}
       <div className="grid md:grid-cols-2 gap-8">
-        {/* Option 1: Direct Message */}
         <Link
           to="/contact"
           className="group p-12 bg-white dark:bg-slate-950 border-2 border-slate-200 dark:border-slate-800 rounded-[3rem] shadow-xl hover:border-blue-500 hover:-translate-y-2 transition-all duration-500"
@@ -61,9 +58,8 @@ function GetStartedPage() {
           </span>
         </Link>
 
-        {/* Option 2: Browse Services */}
         <Link
-          to="/service" // Fixed to match your /service/ route
+          to="/service"
           className="group p-12 bg-white dark:bg-slate-950 border-2 border-slate-200 dark:border-slate-800 rounded-[3rem] shadow-xl hover:border-blue-500 hover:-translate-y-2 transition-all duration-500"
         >
           <div className="w-16 h-16 bg-slate-900 dark:bg-slate-800 text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg">
@@ -82,7 +78,6 @@ function GetStartedPage() {
         </Link>
       </div>
 
-      {/* Option 3: Discovery Call */}
       <div className="group p-10 bg-white dark:bg-slate-950 border-2 border-slate-200 dark:border-slate-800 rounded-[3rem] shadow-xl">
         <div className="w-16 h-16 bg-emerald-500 text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg shadow-emerald-500/30">
           <Calendar size={32} />
@@ -102,7 +97,6 @@ function GetStartedPage() {
         </Link>
       </div>
 
-      {/* 4. VALUE PROPS */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-10">
         {["Expert Code", "Modern UI", "SEO Ready", "Fast Delivery"].map(
           (text) => (

@@ -11,17 +11,17 @@ export const Route = createFileRoute("/tech-stack/$techId")({
   head: (ctx) => {
     const tech = ctx.loaderData?.data;
     if (!tech)
-      return { meta: [{ title: "Technology Stack | GP Digital Designs" }] };
+      return { meta: [{ title: "Technology Stack | GP Digital Web Studio" }] };
 
     return {
       meta: [
         // Updated Branding
-        { title: `${tech.name} | Tech Stack | GP Digital Designs` },
+        { title: `${tech.name} | Tech Stack | GP Digital Web Studio` },
         {
           name: "description",
           content:
             tech.description?.replace(/<[^>]*>/g, "").substring(0, 160) ||
-            `Professional ${tech.name} development and architectural solutions by GP Digital Designs.`,
+            `Professional ${tech.name} development and architectural solutions by GP Digital Web Studio.`,
         },
         { property: "og:title", content: `${tech.name} Development Expertise` },
         { property: "og:site_name", content: "GP Digital Designs" },

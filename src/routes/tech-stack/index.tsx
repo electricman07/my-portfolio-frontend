@@ -7,7 +7,7 @@ import { z } from "zod";
 export const Route = createFileRoute("/tech-stack/")({
   head: () => ({
     meta: [
-      { title: "Modern Tech Stack & Expertise | Glen Studio" },
+      { title: "Modern Tech Stack & Expertise | GP Digital Web Studio" },
       {
         name: "description",
         content:
@@ -79,7 +79,7 @@ function TechComponent() {
           items.map((tech: any) => (
             <TechCard
               key={tech.id}
-              documentId={tech.documentId} // Use documentId for Strapi 5 routing
+              documentId={tech.documentId}
               name={tech.name}
               Icon={getTechIcon(tech.iconName)}
               color={tech.color}

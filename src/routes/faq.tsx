@@ -11,14 +11,13 @@ import { ClientOnly } from "#/components/ui/ClientOnly";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      // Updated Branding
-      { title: "Frequently Asked Questions | GP Digital Designs" },
+      { title: "Frequently Asked Questions | GP Digital Web Studio" },
       {
         name: "description",
         content:
           "Everything you need to know about the web development process and custom digital solutions by GP Digital Designs.",
       },
-      { property: "og:site_name", content: "GP Digital Designs" },
+      { property: "og:site_name", content: "GP Digital Web Studio" },
     ],
   }),
   component: FAQPage,
@@ -29,7 +28,6 @@ function FAQContent() {
 
   const { ref, inView } = useInView();
 
-  // 1. Setup Infinite Query
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError } =
     useInfiniteQuery({
       queryKey: ["faqs-infinite"],
@@ -55,7 +53,6 @@ function FAQContent() {
       </div>
     );
 
-  // 3. Flatten the pages into a single list
   const allFaqs = data?.pages.flatMap((page) => page.data) || [];
 
   return (
@@ -64,7 +61,6 @@ function FAQContent() {
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-black uppercase tracking-widest mx-auto">
           <HelpCircle size={14} /> Support Center
         </div>
-        {/* FONT COLOR FIX: text-slate-950 */}
         <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-tight text-slate-950 dark:text-white">
           Common Questions.
         </h1>
@@ -86,7 +82,6 @@ function FAQContent() {
                     {Array.isArray(faq.answer) ? (
                       <BlocksRenderer content={faq.answer} />
                     ) : (
-                      // Handle CKEditor HTML string
                       <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
                     )}
                   </div>

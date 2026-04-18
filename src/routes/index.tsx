@@ -33,7 +33,6 @@ function App() {
 
   return (
     <div className="space-y-12 pb-12 mx-2.5">
-      {/* Dynamic Hero with Strapi text */}
       <Hero
         title={home?.heroTitle}
         subtitle={home?.heroSubtitle}
@@ -41,12 +40,10 @@ function App() {
         ctaText={home?.ctaText}
       />
 
-      {/* Slider using real project data */}
       <Reveal delay={0.1}>
         <ProjectSlider projects={projects} />
       </Reveal>
 
-      {/* Services summary (can also be made dynamic similar to About) */}
       <Reveal delay={0.2}>
         <ServicesSummary />
       </Reveal>

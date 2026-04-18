@@ -37,7 +37,7 @@ export const Route = createFileRoute("/blog/")({
   },
   head: (ctx) => {
     if (!ctx.loaderData?.searchParams) {
-      return { meta: [{ title: "GP Digital Designs" }] };
+      return { meta: [{ title: "GP Digital Web Studio" }] };
     }
 
     const { search, tag, page } = ctx.loaderData.searchParams;
@@ -123,11 +123,11 @@ function BlogComponent() {
             {(localSearch || tag || author) && (
               <button
                 onClick={() => {
-                  setLocalSearch(""); // 1. Clear the visual text box immediately
+                  setLocalSearch("");
                   navigate({
                     search: (prev) => ({
                       ...prev,
-                      search: undefined, // 2. Remove search from URL
+                      search: undefined,
                       page: 1,
                     }),
                   });

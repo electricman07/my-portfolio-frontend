@@ -23,7 +23,7 @@ export const Route = createFileRoute("/portfolio/")({
   loader: ({ deps }) => ({ deps }),
   head: (ctx) => {
     const search = ctx.loaderData?.deps?.search;
-    const base = "GP Digital Designs";
+    const base = "GP Digital Web Studio";
     const title = search
       ? `Search: "${search}" | Portfolio | ${base}`
       : `Portfolio | Featured Works | ${base}`;
