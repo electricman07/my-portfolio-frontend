@@ -10,7 +10,7 @@ interface HeroProps {
 
 export function Hero({ title, subtitle, description, ctaText }: HeroProps) {
   return (
-    <section className="text-center py-20 animate-in fade-in slide-in-from-bottom-5 duration-700">
+    <section className="text-center py-20 animate-in fade-in slide-in-from-bottom-5 duration-700 max-w-300 mx-auto">
       {/* Dynamic Title from Strapi 5 */}
       <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-6 leading-tight">
         {title || (
